@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<pbn>
+	<domain>
+		<slice>
+			<binding symbol="m" value="camille" />
+			<binding symbol="f" value="pierre" />
+			<binding symbol="c" value="anne" />
+		</slice>
+		<slice>
+			<binding symbol="m" value="anne" />
+			<binding symbol="f" value="brian" />
+			<binding symbol="c" value="dorothy" />
+		</slice>
+	</domain>
+	<template>
+		<node>
+			<name>mother</name>
+			<binding>m</binding>
+			<cpt>
+				<segment>
+					<outcome value="AA" p="0.25" />
+					<outcome value="Aa" p="0.50" />
+					<outcome value="aa" p="0.25" />
+				</segment>
+			</cpt>
+		</node>
+		<node>
+			<name>father</name>
+			<binding>f</binding>
+			<cpt>
+				<segment>
+					<outcome value="AA" p="0.25" />
+					<outcome value="Aa" p="0.50" />
+					<outcome value="aa" p="0.25" />
+				</segment>
+			</cpt>
+		</node>
+		<node>
+			<name>child</name>
+			<binding>c</binding>
+			<cpt given="mother:father">
+				<segment condition="AA:AA">
+					<outcome value="AA" p="1.00" />
+					<outcome value="Aa" p="0.00" />
+					<outcome value="aa" p="0.00" />
+				</segment>
+				<segment condition="AA:Aa">
+					<outcome value="AA" p="0.50" />
+					<outcome value="Aa" p="0.50" />
+					<outcome value="aa" p="0.00" />
+				</segment>
+				<segment condition="AA:aa">
+					<outcome value="AA" p="0.00" />
+					<outcome value="Aa" p="1.00" />
+					<outcome value="aa" p="0.00" />
+				</segment>
+				<segment condition="Aa:AA">
+					<outcome value="AA" p="0.50" />
+					<outcome value="Aa" p="0.50" />
+					<outcome value="aa" p="0.00" />
+				</segment>
+				<segment condition="Aa:Aa">
+					<outcome value="AA" p="0.25" />
+					<outcome value="Aa" p="0.50" />
+					<outcome value="aa" p="0.25" />
+				</segment>
+				<segment condition="Aa:aa">
+					<outcome value="AA" p="0.00" />
+					<outcome value="Aa" p="0.50" />
+					<outcome value="aa" p="0.50" />
+				</segment>
+				<segment condition="aa:AA">
+					<outcome value="AA" p="0.00" />
+					<outcome value="Aa" p="1.00" />
+					<outcome value="aa" p="0.00" />
+				</segment>
+				<segment condition="aa:Aa">
+					<outcome value="AA" p="0.00" />
+					<outcome value="Aa" p="0.50" />
+					<outcome value="aa" p="0.50" />
+				</segment>
+				<segment condition="aa:aa">
+					<outcome value="AA" p="0.00" />
+					<outcome value="Aa" p="0.00" />
+					<outcome value="aa" p="1.00" />
+				</segment>
+			</cpt>
+		</node>
+	</template>
+</pbn>
