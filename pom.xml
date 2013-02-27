@@ -9,6 +9,9 @@
     <packaging>jar</packaging>
     <name>pbn</name>
     <version>0.1</version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>javax.xml.bind</groupId>
@@ -36,6 +39,7 @@
                     <executions>
                         <execution>
                             <id>xjc</id>
+                            <!-- <phase>generate-sources</phase> -->
                             <goals>
                                 <goal>xjc</goal>
                             </goals>
