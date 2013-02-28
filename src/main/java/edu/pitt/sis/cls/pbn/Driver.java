@@ -2,7 +2,7 @@ package edu.pitt.sis.cls.pbn;
 
 public class Driver {
     private static void usage() {
-        System.out.println("usage: <program> source-file [output-file]");
+        System.out.println(Constants.USAGE);
         System.exit(1);
     }
 
@@ -25,7 +25,7 @@ public class Driver {
 
     private static String getOutputFilename(String sourceFilename) {
         String[] segments = sourceFilename.split("\\.");
-        String outputExtension = "xdsl";
+        String outputExtension = Constants.OUT_EXTENSION;
         String extension;
         String firstPart;
 
