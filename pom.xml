@@ -37,15 +37,33 @@
                 <version>1.5</version>
                 <executions>
                     <execution>
-                        <id>xjc</id>
+                        <id>xjc-pbn</id>
                         <goals>
                             <goal>xjc</goal>
                         </goals>
+                        <configuration>
+                            <schemaFiles>pbn.xsd</schemaFiles>
+                            <packageName>edu.pitt.sis.cls.pbn.lang</packageName>
+                            <staleFile>
+                                ${project.build.directory}/jaxb2/.pbnStaleFlag
+                            </staleFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>xjc-xdsl</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                        <configuration>
+                            <schemaFiles>xdsl.xsd</schemaFiles>
+                            <packageName>edu.pitt.sis.cls.pbn.xdsl</packageName>
+                            <staleFile>
+                                ${project.build.directory}/jaxb2/.xdslStaleFlag
+                            </staleFile>
+                            <clearOutputDir>false</clearOutputDir>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <packageName>edu.pitt.sis.cls.pbn.lang</packageName>
-                </configuration>
             </plugin>
         </plugins>
     </build>
