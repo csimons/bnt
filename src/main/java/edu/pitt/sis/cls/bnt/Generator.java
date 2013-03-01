@@ -12,7 +12,7 @@ public class Generator {
 
     public Generator() {
         parsers = new HashMap<String, Class<? extends Parser>>();
-        parsers.put("bnt", XMLParser.class);
+        parsers.put(Constants.BNT_EXTENSION, XMLParser.class);
     }
 
     public void run(String sourceFilename, String outputFilename)
