@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<pbn>
+<bnt>
 	<domain>
 		<slice>
 			<binding symbol="m" value="camille" />
@@ -88,4 +88,4 @@
 			</cpt>
 		</node>
 	</template>
-</pbn>
+</bnt>

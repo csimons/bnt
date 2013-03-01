@@ -1,4 +1,4 @@
-package edu.pitt.sis.cls.pbn;
+package edu.pitt.sis.cls.bnt;
 
 public class Driver {
     private static void usage() {

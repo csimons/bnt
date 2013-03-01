@@ -5,9 +5,9 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.pitt.sis.cls</groupId>
-    <artifactId>pbn</artifactId>
+    <artifactId>bnt</artifactId>
     <packaging>jar</packaging>
-    <name>pbn</name>
+    <name>bnt</name>
     <version>0.1</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,15 +37,15 @@
                 <version>1.5</version>
                 <executions>
                     <execution>
-                        <id>xjc-pbn</id>
+                        <id>xjc-bnt</id>
                         <goals>
                             <goal>xjc</goal>
                         </goals>
                         <configuration>
-                            <schemaFiles>pbn.xsd</schemaFiles>
-                            <packageName>edu.pitt.sis.cls.pbn.lang</packageName>
+                            <schemaFiles>bnt.xsd</schemaFiles>
+                            <packageName>edu.pitt.sis.cls.bnt.lang</packageName>
                             <staleFile>
-                                ${project.build.directory}/jaxb2/.pbnStaleFlag
+                                ${project.build.directory}/jaxb2/.bntStaleFlag
                             </staleFile>
                         </configuration>
                     </execution>
@@ -56,7 +56,7 @@
                         </goals>
                         <configuration>
                             <schemaFiles>xdsl.xsd</schemaFiles>
-                            <packageName>edu.pitt.sis.cls.pbn.xdsl</packageName>
+                            <packageName>edu.pitt.sis.cls.bnt.xdsl</packageName>
                             <staleFile>
                                 ${project.build.directory}/jaxb2/.xdslStaleFlag
                             </staleFile>

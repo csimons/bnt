@@ -1,6 +1,6 @@
-# pbn
+# bnt
 
-Parameterized Bayesian Networks
+Bayesian Network Templates
 
 ## Licensing
 

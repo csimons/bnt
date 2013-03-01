@@ -1,6 +1,6 @@
-package edu.pitt.sis.cls.pbn;
+package edu.pitt.sis.cls.bnt;
 
-import edu.pitt.sis.cls.pbn.lang.Pbn;
+import edu.pitt.sis.cls.bnt.lang.Bnt;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -12,14 +12,14 @@ public class Generator {
 
     public Generator() {
         parsers = new HashMap<String, Class<? extends Parser>>();
-        parsers.put("pbn", XMLParser.class);
+        parsers.put("bnt", XMLParser.class);
     }
 
     public void run(String sourceFilename, String outputFilename)
             throws Exception {
         InputStream is = new FileInputStream(sourceFilename);
         Parser parser = parsers.get(extension(sourceFilename)).newInstance();
-        Pbn pbn = parser.parse(is);
+        Bnt bnt = parser.parse(is);
         is.close();
     }
 
