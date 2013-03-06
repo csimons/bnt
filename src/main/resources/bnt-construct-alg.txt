@@ -1,0 +1,12 @@
+foreach domain slice:
+	foreach template node:
+		new node (name from slice, cpt from t-node)
+	add node set to domain-layer list
+create node pool:
+	foreach domain-layer:
+		foreach node:
+			if not in pool:
+				insert
+			else:
+				replace a-priori CPTs
+				append/adjust name per domain layer
