@@ -38,16 +38,38 @@ public class Generator {
 					if (!domainBinding.getSymbol().equals(templateBinding.getSymbol()))
 						continue;
 					else {
+						nodeInstance.id = domainBinding.getValue();
+						nodeInstance.cpt = templateNode.getCpt();
+						nodeInstance.templateNodeName = templateNode.getName();
+						nodeInstance.domainSlice = i;
 						nodeInstance.name = String.format("%s::%s[d=%d]",
-							domainBinding.getValue(),
-							templateNode.getName(), i);
+								nodeInstance.id,
+								nodeInstance.templateNodeName,
+								nodeInstance.domainSlice);
 						domainLayer.add(nodeInstance);
 					}
 				}
 			}
 			domainLayers.add(domainLayer);
 		}
-		// TODO: Collapse domain layers.
+
+		Map<String, NodeInstance> pool = new HashMap<String, NodeInstance>();
+		for (List<NodeInstance> domainLayer : domainLayers) {
+			for (NodeInstance nodeInstance : domainLayer) {
+				if (!pool.containsKey(nodeInstance.id))
+					pool.put(nodeInstance.id, nodeInstance);
+				else {
+					NodeInstance poolInstance = pool.get(nodeInstance.id);
+					if (poolInstance.cpt.getGiven() == null
+							&& nodeInstance.cpt.getGiven() != null)
+						poolInstance.cpt = nodeInstance.cpt;
+					poolInstance.name = poolInstance.name
+							+ String.format("::%s[d=%d]",
+									nodeInstance.templateNodeName,
+									nodeInstance.domainSlice);
+				}
+			}
+		}
 	}
 
 	private String extension(String filename) {
