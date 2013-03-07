@@ -1,7 +1,7 @@
 foreach domain slice:
 	foreach template node:
 		new node (name from slice, cpt from t-node)
-	add node set to domain-layer list
+		add node to domain-layer list
 create node pool:
 	foreach domain-layer:
 		foreach node:
