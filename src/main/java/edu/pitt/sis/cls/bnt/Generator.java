@@ -18,6 +18,7 @@ public class Generator {
 	public Generator() {
 		parsers = new HashMap<String, Class<? extends Parser>>();
 		parsers.put(Constants.BNT_EXTENSION, XMLParser.class);
+		parsers.put(Constants.XML_EXTENSION, XMLParser.class);
 	}
 
 	private String extension(String filename) {
