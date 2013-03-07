@@ -16,7 +16,7 @@
 	<template>
 		<node>
 			<name>mother</name>
-			<binding>m</binding>
+			<binding symbol="m" />
 			<cpt>
 				<segment>
 					<outcome value="AA" p="0.25" />
@@ -27,7 +27,7 @@
 		</node>
 		<node>
 			<name>father</name>
-			<binding>f</binding>
+			<binding symbol="f" />
 			<cpt>
 				<segment>
 					<outcome value="AA" p="0.25" />
@@ -38,7 +38,7 @@
 		</node>
 		<node>
 			<name>child</name>
-			<binding>c</binding>
+			<binding symbol="c" />
 			<cpt given="mother:father">
 				<segment condition="AA:AA">
 					<outcome value="AA" p="1.00" />
