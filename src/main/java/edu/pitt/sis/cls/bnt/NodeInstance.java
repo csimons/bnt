@@ -14,7 +14,7 @@ public class NodeInstance {
 	public String name;
 
 	/**
-	 * Conditional probability table; a-prior tables will lack "given" property.
+	 * Conditional probability table; a-priori tables will lack "given" property.
 	 */
 	public Cpt cpt;
 
