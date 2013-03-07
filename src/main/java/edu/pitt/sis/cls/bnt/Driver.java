@@ -1,5 +1,7 @@
 package edu.pitt.sis.cls.bnt;
 
+import java.util.Map;
+
 public class Driver {
 	private static void usage() {
 		System.out.println(Constants.USAGE);
@@ -20,7 +22,9 @@ public class Driver {
 		if (outputFilename == null || outputFilename.length() == 0)
 			outputFilename = getOutputFilename(sourceFilename);
 
-		new Generator().run(sourceFilename, outputFilename);
+		Map<String, NodeInstance> pool = (new Generator()).constructPoolFromFile(sourceFilename);
+		for (String key : pool.keySet())
+			System.out.println("Got nodeInstance " + pool.get(key).name);
 	}
 
 	private static String getOutputFilename(String sourceFilename) {

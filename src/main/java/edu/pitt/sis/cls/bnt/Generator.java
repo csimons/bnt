@@ -20,13 +20,30 @@ public class Generator {
 		parsers.put(Constants.BNT_EXTENSION, XMLParser.class);
 	}
 
-	public void run(String sourceFilename, String outputFilename)
-			throws Exception {
+	private String extension(String filename) {
+		String[] segments = filename == null
+			? new String[] {""}
+			: filename.split("\\.");
+
+		return segments.length == 1
+			? ""
+			: segments[segments.length - 1];
+	}
+
+	public Map<String, NodeInstance> constructPoolFromFile(
+			String sourceFilename) throws Exception {
 		InputStream is = new FileInputStream(sourceFilename);
 		Parser parser = parsers.get(extension(sourceFilename)).newInstance();
 		Bnt bnt = parser.parse(is);
 		is.close();
+		return constructPool(bnt);
+	}
 
+	public Map<String, NodeInstance> constructPool(Bnt bnt) {
+		return collapseDomainLayers(generateDomainLayers(bnt));
+	}
+
+	private List<List<NodeInstance>> generateDomainLayers(Bnt bnt) {
 		List<List<NodeInstance>> domainLayers = new LinkedList<List<NodeInstance>>();
 		for (Slice slice : bnt.getDomain().getSlice()) {
 			List<NodeInstance> domainLayer = new LinkedList<NodeInstance>();
@@ -52,7 +69,11 @@ public class Generator {
 			}
 			domainLayers.add(domainLayer);
 		}
+		return domainLayers;
+	}
 
+	private Map<String, NodeInstance> collapseDomainLayers(
+			List<List<NodeInstance>> domainLayers) {
 		Map<String, NodeInstance> pool = new HashMap<String, NodeInstance>();
 		for (List<NodeInstance> domainLayer : domainLayers) {
 			for (NodeInstance nodeInstance : domainLayer) {
@@ -70,15 +91,7 @@ public class Generator {
 				}
 			}
 		}
-	}
 
-	private String extension(String filename) {
-		String[] segments = filename == null
-			? new String[] {""}
-			: filename.split("\\.");
-
-		return segments.length == 1
-			? ""
-			: segments[segments.length - 1];
+		return pool;
 	}
 }
