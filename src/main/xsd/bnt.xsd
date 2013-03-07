@@ -18,8 +18,15 @@
   <xs:element name="slice">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="binding"/>
+        <xs:element maxOccurs="unbounded" ref="domain-object"/>
       </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="domain-object">
+    <xs:complexType>
+      <xs:attribute name="binding" use="required" type="xs:NCName"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="template">
@@ -32,39 +39,17 @@
   <xs:element name="node">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="name"/>
-        <xs:element ref="binding"/>
-        <xs:element ref="cpt"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="cpt-segment"/>
       </xs:sequence>
+      <xs:attribute name="apriori"/>
+      <xs:attribute name="binding" use="required" type="xs:NCName"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="name" type="xs:NCName"/>
-  <xs:element name="cpt">
+  <xs:element name="cpt-segment">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="segment"/>
-      </xs:sequence>
-      <xs:attribute name="given" type="xs:NMTOKEN"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="segment">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="outcome"/>
-      </xs:sequence>
-      <xs:attribute name="condition" type="xs:NMTOKEN"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="outcome">
-    <xs:complexType>
-      <xs:attribute name="p" use="required" type="xs:decimal"/>
-      <xs:attribute name="value" use="required" type="xs:NCName"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="binding">
-    <xs:complexType>
-      <xs:attribute name="symbol" use="required" type="xs:NCName"/>
-      <xs:attribute name="value" type="xs:NCName"/>
+      <xs:attribute name="condition" use="required"/>
+      <xs:attribute name="p" use="required"/>
     </xs:complexType>
   </xs:element>
 </xs:schema>

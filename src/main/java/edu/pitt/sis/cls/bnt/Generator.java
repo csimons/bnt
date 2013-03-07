@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import edu.pitt.sis.cls.bnt.lang.Binding;
 import edu.pitt.sis.cls.bnt.lang.Bnt;
+import edu.pitt.sis.cls.bnt.lang.DomainObject;
 import edu.pitt.sis.cls.bnt.lang.Node;
 import edu.pitt.sis.cls.bnt.lang.Slice;
 
@@ -47,18 +47,16 @@ public class Generator {
 		List<List<NodeInstance>> domainLayers = new LinkedList<List<NodeInstance>>();
 		for (Slice slice : bnt.getDomain().getSlice()) {
 			List<NodeInstance> domainLayer = new LinkedList<NodeInstance>();
-			for (Node templateNode : bnt.getTemplate().getNode()) {
-				NodeInstance nodeInstance = new NodeInstance();
-				Binding templateBinding = templateNode.getBinding();
-				for (int i = 0; i < slice.getBinding().size(); i += 1) {
-					Binding domainBinding = slice.getBinding().get(i);
-					if (!domainBinding.getSymbol().equals(templateBinding.getSymbol()))
+			for (DomainObject domainObj : slice.getDomainObject()) {
+				for (Node templateNode : bnt.getTemplate().getNode()) {
+					if (!templateNode.getBinding().equals(domainObj))
 						continue;
 					else {
-						nodeInstance.id = domainBinding.getValue();
-						nodeInstance.cpt = templateNode.getCpt();
+						NodeInstance nodeInstance = new NodeInstance();
+						nodeInstance.id = domainObj.getName();
+						nodeInstance.cpt = templateNode.getCptSegment();
 						nodeInstance.templateNodeName = templateNode.getName();
-						nodeInstance.domainSlice = i;
+						nodeInstance.domainSlice = slice.getId();
 						nodeInstance.name = String.format("%s::%s[d=%d]",
 								nodeInstance.id,
 								nodeInstance.templateNodeName,
@@ -67,7 +65,6 @@ public class Generator {
 					}
 				}
 			}
-			domainLayers.add(domainLayer);
 		}
 		return domainLayers;
 	}
@@ -81,8 +78,8 @@ public class Generator {
 					pool.put(nodeInstance.id, nodeInstance);
 				else {
 					NodeInstance poolInstance = pool.get(nodeInstance.id);
-					if (poolInstance.cpt.getGiven() == null
-							&& nodeInstance.cpt.getGiven() != null)
+					if (poolInstance.cpt == null
+							&& nodeInstance.cpt != null)
 						poolInstance.cpt = nodeInstance.cpt;
 					poolInstance.name = poolInstance.name
 							+ String.format("::%s[d=%d]",
@@ -91,7 +88,6 @@ public class Generator {
 				}
 			}
 		}
-
 		return pool;
 	}
 }

@@ -1,6 +1,8 @@
 package edu.pitt.sis.cls.bnt;
 
-import edu.pitt.sis.cls.bnt.lang.Cpt;
+import java.util.List;
+
+import edu.pitt.sis.cls.bnt.lang.CptSegment;
 
 public class NodeInstance {
 	/**
@@ -14,14 +16,14 @@ public class NodeInstance {
 	public String name;
 
 	/**
-	 * Conditional probability table; a-priori tables will lack "given" property.
+	 * Conditional probability table.
 	 */
-	public Cpt cpt;
+	public List<CptSegment> cpt;
 
 	/**
 	 * Domain slice from which this node was instantiated.
 	 */
-	public int domainSlice;
+	public String domainSlice;
 
 	/**
 	 * Template node name from which this node was instantiated.

@@ -2,90 +2,30 @@
 
 <bnt>
 	<domain>
-		<slice>
-			<binding symbol="m" value="camille" />
-			<binding symbol="f" value="pierre" />
-			<binding symbol="c" value="anne" />
+		<slice id="g0">
+			<domain-object binding="m" name="anne" />
+			<domain-object binding="f" name="brian" />
+			<domain-object binding="c" name="dorothy" />
 		</slice>
-		<slice>
-			<binding symbol="m" value="anne" />
-			<binding symbol="f" value="brian" />
-			<binding symbol="c" value="dorothy" />
+		<slice id="g1">
+			<domain-object binding="m" name="camille" />
+			<domain-object binding="f" name="pierre" />
+			<domain-object binding="c" name="anne" />
 		</slice>
 	</domain>
 	<template>
-		<node>
-			<name>mother</name>
-			<binding symbol="m" />
-			<cpt>
-				<segment>
-					<outcome value="AA" p="0.25" />
-					<outcome value="Aa" p="0.50" />
-					<outcome value="aa" p="0.25" />
-				</segment>
-			</cpt>
-		</node>
-		<node>
-			<name>father</name>
-			<binding symbol="f" />
-			<cpt>
-				<segment>
-					<outcome value="AA" p="0.25" />
-					<outcome value="Aa" p="0.50" />
-					<outcome value="aa" p="0.25" />
-				</segment>
-			</cpt>
-		</node>
-		<node>
-			<name>child</name>
-			<binding symbol="c" />
-			<cpt given="mother:father">
-				<segment condition="AA:AA">
-					<outcome value="AA" p="1.00" />
-					<outcome value="Aa" p="0.00" />
-					<outcome value="aa" p="0.00" />
-				</segment>
-				<segment condition="AA:Aa">
-					<outcome value="AA" p="0.50" />
-					<outcome value="Aa" p="0.50" />
-					<outcome value="aa" p="0.00" />
-				</segment>
-				<segment condition="AA:aa">
-					<outcome value="AA" p="0.00" />
-					<outcome value="Aa" p="1.00" />
-					<outcome value="aa" p="0.00" />
-				</segment>
-				<segment condition="Aa:AA">
-					<outcome value="AA" p="0.50" />
-					<outcome value="Aa" p="0.50" />
-					<outcome value="aa" p="0.00" />
-				</segment>
-				<segment condition="Aa:Aa">
-					<outcome value="AA" p="0.25" />
-					<outcome value="Aa" p="0.50" />
-					<outcome value="aa" p="0.25" />
-				</segment>
-				<segment condition="Aa:aa">
-					<outcome value="AA" p="0.00" />
-					<outcome value="Aa" p="0.50" />
-					<outcome value="aa" p="0.50" />
-				</segment>
-				<segment condition="aa:AA">
-					<outcome value="AA" p="0.00" />
-					<outcome value="Aa" p="1.00" />
-					<outcome value="aa" p="0.00" />
-				</segment>
-				<segment condition="aa:Aa">
-					<outcome value="AA" p="0.00" />
-					<outcome value="Aa" p="0.50" />
-					<outcome value="aa" p="0.50" />
-				</segment>
-				<segment condition="aa:aa">
-					<outcome value="AA" p="0.00" />
-					<outcome value="Aa" p="0.00" />
-					<outcome value="aa" p="1.00" />
-				</segment>
-			</cpt>
+		<node name="mother" binding="m" apriori="AA=0.25;Aa=0.50;aa=0.25" />
+		<node name="father" binding="f" apriori="AA=0.25;Aa=0.50;aa=0.25" />
+		<node name="child"  binding="c">
+			<cpt-segment condition="mother=AA;father=AA" p="AA=1.00;Aa=0.00;aa=0.00" />
+			<cpt-segment condition="mother=AA;father=Aa" p="AA=0.50;Aa=0.50;aa=0.00" />
+			<cpt-segment condition="mother=AA;father=aa" p="AA=0.00;Aa=1.00;aa=0.00" />
+			<cpt-segment condition="mother=Aa;father=AA" p="AA=0.50;Aa=0.50;aa=0.00" />
+			<cpt-segment condition="mother=Aa;father=Aa" p="AA=0.25;Aa=0.50;aa=0.25" />
+			<cpt-segment condition="mother=Aa;father=aa" p="AA=0.00;Aa=0.50;aa=0.50" />
+			<cpt-segment condition="mother=aa;father=AA" p="AA=0.00;Aa=1.00;aa=0.00" />
+			<cpt-segment condition="mother=aa;father=Aa" p="AA=0.00;Aa=0.50;aa=0.50" />
+			<cpt-segment condition="mother=aa;father=aa" p="AA=0.00;Aa=0.00;aa=1.00" />
 		</node>
 	</template>
 </bnt>
