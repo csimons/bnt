@@ -72,13 +72,13 @@ public class Generator {
 
 	private Map<String, NodeInstance> collapseDomainLayers(
 			List<List<NodeInstance>> domainLayers) {
-		Map<String, NodeInstance> pool = new HashMap<String, NodeInstance>();
+		Map<String, NodeInstance> nodePool = new HashMap<String, NodeInstance>();
 		for (List<NodeInstance> domainLayer : domainLayers) {
 			for (NodeInstance nodeInstance : domainLayer) {
-				if (!pool.containsKey(nodeInstance.id))
-					pool.put(nodeInstance.id, nodeInstance);
+				if (!nodePool.containsKey(nodeInstance.id))
+					nodePool.put(nodeInstance.id, nodeInstance);
 				else {
-					NodeInstance poolInstance = pool.get(nodeInstance.id);
+					NodeInstance poolInstance = nodePool.get(nodeInstance.id);
 					if (poolInstance.cpt == null
 							&& nodeInstance.cpt != null)
 						poolInstance.cpt = nodeInstance.cpt;
@@ -89,6 +89,6 @@ public class Generator {
 				}
 			}
 		}
-		return pool;
+		return nodePool;
 	}
 }
