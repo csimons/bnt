@@ -56,6 +56,7 @@ public class Generator {
 						NodeInstance nodeInstance = new NodeInstance();
 						nodeInstance.id = domainObj.getName();
 						nodeInstance.cpt = templateNode.getCptSegment();
+						nodeInstance.apriori = templateNode.getApriori();
 						nodeInstance.templateNodeName = templateNode.getName();
 						nodeInstance.domainSlice = slice.getId();
 						nodeInstance.name = String.format("%s::%s[d=%d]",
