@@ -22,9 +22,13 @@ public class Driver {
 		if (outputFilename == null || outputFilename.length() == 0)
 			outputFilename = getOutputFilename(sourceFilename);
 
-		Map<String, NodeInstance> pool = (new Generator()).constructPoolFromFile(sourceFilename);
-		for (String key : pool.keySet())
-			System.out.println("Got nodeInstance " + pool.get(key).name);
+		Map<String, NodeInstance> nodePool
+			= (new Generator()).constructPoolFromFile(sourceFilename);
+
+		for (String key : nodePool.keySet())
+			System.out.println("Got nodeInstance " + nodePool.get(key).name);
+
+		System.out.println("XDSL:\n\n" + (new XDSLWriter()).format(nodePool));
 	}
 
 	private static String getOutputFilename(String sourceFilename) {
