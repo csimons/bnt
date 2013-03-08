@@ -1,4 +1,6 @@
+- Generation of XDSL models.
 - Syntactic validation for BNT language.
 - Semantic validation for BNT language based on Haddawy's constraints.
-- Generation of XDSL models.
-- Introduce concise (non-XML) template language (FOL?).
+- Other BNT definition languages:
+  - Concise FOL-based language.
+  - JSON (google-gson)?
