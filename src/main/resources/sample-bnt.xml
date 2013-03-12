@@ -14,18 +14,18 @@
 		</slice>
 	</domain>
 	<template>
-		<node name="mother" binding="m" apriori="AA=0.25;Aa=0.50;aa=0.25" />
-		<node name="father" binding="f" apriori="AA=0.25;Aa=0.50;aa=0.25" />
-		<node name="child"  binding="c">
-			<cpt-segment condition="mother=AA;father=AA" p="AA=1.00;Aa=0.00;aa=0.00" />
-			<cpt-segment condition="mother=AA;father=Aa" p="AA=0.50;Aa=0.50;aa=0.00" />
-			<cpt-segment condition="mother=AA;father=aa" p="AA=0.00;Aa=1.00;aa=0.00" />
-			<cpt-segment condition="mother=Aa;father=AA" p="AA=0.50;Aa=0.50;aa=0.00" />
-			<cpt-segment condition="mother=Aa;father=Aa" p="AA=0.25;Aa=0.50;aa=0.25" />
-			<cpt-segment condition="mother=Aa;father=aa" p="AA=0.00;Aa=0.50;aa=0.50" />
-			<cpt-segment condition="mother=aa;father=AA" p="AA=0.00;Aa=1.00;aa=0.00" />
-			<cpt-segment condition="mother=aa;father=Aa" p="AA=0.00;Aa=0.50;aa=0.50" />
-			<cpt-segment condition="mother=aa;father=aa" p="AA=0.00;Aa=0.00;aa=1.00" />
+		<node name="mother" binding="m" states="AA Aa aa" apriori="0.25 0.50 0.25" />
+		<node name="father" binding="f" states="AA Aa aa" apriori="0.25 0.50 0.25" />
+		<node name="child"  binding="c" states="AA Aa aa" parents="mother father">
+			<cpt-segment p="1.00 0.00 0.00" />
+			<cpt-segment p="0.50 0.50 0.00" />
+			<cpt-segment p="0.00 1.00 0.00" />
+			<cpt-segment p="0.50 0.50 0.00" />
+			<cpt-segment p="0.25 0.50 0.25" />
+			<cpt-segment p="0.00 0.50 0.50" />
+			<cpt-segment p="0.00 1.00 0.00" />
+			<cpt-segment p="0.00 0.50 0.50" />
+			<cpt-segment p="0.00 0.00 1.00" />
 		</node>
 	</template>
 </bnt>

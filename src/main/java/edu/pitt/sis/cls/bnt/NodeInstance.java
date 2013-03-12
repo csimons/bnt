@@ -21,9 +21,19 @@ public class NodeInstance {
 	public List<CptSegment> cpt;
 
 	/**
-	 * A priori state probabilities.
+	 * Space-delimited list of states.
+	 */
+	public String states;
+
+	/**
+	 * Space-delimited list of a-priori state probabilities.
 	 */
 	public String apriori;
+
+	/**
+	 * Space-delimited list of direct parents.
+	 */
+	public String parents;
 
 	/**
 	 * Domain slice from which this node was instantiated.

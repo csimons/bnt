@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import edu.pitt.sis.cls.bnt.lang.CptSegment;
 import edu.pitt.sis.cls.bnt.xdsl.Cpt;
 import edu.pitt.sis.cls.bnt.xdsl.Nodes;
 import edu.pitt.sis.cls.bnt.xdsl.Smile;
@@ -20,35 +21,24 @@ public class XDSLWriter {
 
 		return sb.toString();
 	}
-	
+
 	private Cpt generateCpt(NodeInstance nodeInstance) {
-		return nodeInstance.cpt == null
+		// TODO: Find out whether missing XML elements are null or empty.
+		return (nodeInstance.cpt == null || nodeInstance.cpt.size() == 0)
 				? generateAPrioriCpt(nodeInstance)
 				: generateInfluencedCpt(nodeInstance);
 	}
 
 	private Cpt generateAPrioriCpt(NodeInstance nodeInstance) {
-		List<String> outcomes = new LinkedList<String>();
-		List<String> values = new LinkedList<String>();
-		String p = nodeInstance.apriori;
-		String[] assignments = p.split(";");
-		String[] tokens = null;
-		for (int i = 0; i < assignments.length; i += 1) {
-			tokens = assignments[i].split("=");
-			outcomes.add(tokens[0]);
-			values.add(tokens[1]);
-		}
 		Cpt cpt = new Cpt();
-		StringBuffer pAcc = new StringBuffer();
-		for (int i = 1; i <= outcomes.size(); i += 1) {
+		cpt.setId(nodeInstance.id);
+		String[] states = nodeInstance.states.split(" ");
+		for (int i = 0; i < states.length; i += 1) {
 			State state = new State();
-			state.setId(outcomes.get(i));
+			state.setId(states[i]);
 			cpt.getState().add(state);
-			pAcc.append(values.get(i));
-			if (i < outcomes.size())
-				pAcc.append(" ");
 		}
-		cpt.setProbabilities(pAcc.toString());
+		cpt.setProbabilities(nodeInstance.apriori);
 		return cpt;
 	}
 
