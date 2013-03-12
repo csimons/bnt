@@ -13,7 +13,7 @@ import edu.pitt.sis.cls.bnt.xdsl.Nodes;
 import edu.pitt.sis.cls.bnt.xdsl.Smile;
 import edu.pitt.sis.cls.bnt.xdsl.State;
 
-public class XDSLWriter {
+public class XDSLWriter implements Writer {
 	public String format(NodePool nodePool) {
 		Smile smile = new Smile();
 		Extensions extensions = smile.getExtensions();
