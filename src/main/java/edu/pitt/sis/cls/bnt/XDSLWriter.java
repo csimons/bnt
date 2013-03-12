@@ -1,8 +1,12 @@
 package edu.pitt.sis.cls.bnt;
 
+import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 import edu.pitt.sis.cls.bnt.lang.CptSegment;
 import edu.pitt.sis.cls.bnt.xdsl.Cpt;
@@ -30,7 +34,15 @@ public class XDSLWriter implements Writer {
 		for (String key : nodePool.keySet())
 			genie.getNode().add(generateGenieNode(key, nodePool));
 
-		return null; // TODO: Return Smile object as XML text.
+		StringWriter sw = new StringWriter();
+		String result = null;
+		try {
+			JAXBContext jc = JAXBContext.newInstance("edu.pitt.sis.cls.bnt.xdsl");
+			Marshaller m = jc.createMarshaller();
+			m.marshal(smile, sw);
+			result = sw.toString();
+		} catch (Exception e) {}
+		return result;
 	}
 
 	private Cpt generateCpt(String key, NodePool nodePool) {
