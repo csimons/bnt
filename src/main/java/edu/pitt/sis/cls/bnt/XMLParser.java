@@ -1,10 +1,11 @@
 package edu.pitt.sis.cls.bnt;
 
-import edu.pitt.sis.cls.bnt.lang.Bnt;
-
 import java.io.InputStream;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
+
+import edu.pitt.sis.cls.bnt.lang.Bnt;
 
 public class XMLParser implements Parser {
 	public Bnt parse(InputStream is) throws Exception {

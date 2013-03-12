@@ -31,7 +31,7 @@ public class Generator {
 			: segments[segments.length - 1];
 	}
 
-	public Map<String, NodeInstance> constructPoolFromFile(
+	public NodePool constructPoolFromFile(
 			String sourceFilename) throws Exception {
 		InputStream is = new FileInputStream(sourceFilename);
 		Parser parser = parsers.get(extension(sourceFilename)).newInstance();
@@ -40,7 +40,7 @@ public class Generator {
 		return constructPool(bnt);
 	}
 
-	public Map<String, NodeInstance> constructPool(Bnt bnt) {
+	public NodePool constructPool(Bnt bnt) {
 		return collapseDomainLayers(generateDomainLayers(bnt));
 	}
 
@@ -73,9 +73,9 @@ public class Generator {
 		return domainLayers;
 	}
 
-	private Map<String, NodeInstance> collapseDomainLayers(
+	private NodePool collapseDomainLayers(
 			List<List<NodeInstance>> domainLayers) {
-		Map<String, NodeInstance> nodePool = new HashMap<String, NodeInstance>();
+		NodePool nodePool = new NodePool();
 		for (List<NodeInstance> domainLayer : domainLayers) {
 			for (NodeInstance nodeInstance : domainLayer) {
 				if (!nodePool.containsKey(nodeInstance.id))
