@@ -1,20 +1,36 @@
 package edu.pitt.sis.cls.bnt;
 
+import java.math.BigDecimal;
+import java.util.LinkedList;
+import java.util.List;
+
+import edu.pitt.sis.cls.bnt.lang.CptSegment;
 import edu.pitt.sis.cls.bnt.xdsl.Cpt;
+import edu.pitt.sis.cls.bnt.xdsl.Extensions;
+import edu.pitt.sis.cls.bnt.xdsl.Genie;
+import edu.pitt.sis.cls.bnt.xdsl.Node;
 import edu.pitt.sis.cls.bnt.xdsl.Nodes;
 import edu.pitt.sis.cls.bnt.xdsl.Smile;
 import edu.pitt.sis.cls.bnt.xdsl.State;
 
 public class XDSLWriter {
 	public String format(NodePool nodePool) {
-		StringBuffer sb = new StringBuffer();
-
 		Smile smile = new Smile();
+		Extensions extensions = smile.getExtensions();
+
 		Nodes nodes = smile.getNodes();
 		for (String key : nodePool.keySet())
 			nodes.getCpt().add(generateCpt(key, nodePool));
 
-		return sb.toString();
+		Genie genie = extensions.getGenie();
+		genie.setVersion(new BigDecimal("1.0"));
+		genie.setApp("GeNIe 2.0.4535.0");
+		genie.setName("Network1");
+		genie.setFaultnameformat("nodestate");
+		for (String key : nodePool.keySet())
+			genie.getNode().add(generateGenieNode(key, nodePool));
+
+		return null; // TODO: Return Smile object as XML text.
 	}
 
 	private Cpt generateCpt(String key, NodePool nodePool) {
@@ -27,20 +43,31 @@ public class XDSLWriter {
 			state.setId(states[i]);
 			cpt.getState().add(state);
 		}
-		// TODO: Find out whether missing XML elements are null or empty:
-		return (nodeInstance.cpt == null || nodeInstance.cpt.size() == 0)
-				? generateAPrioriCpt(nodeInstance, cpt)
-				: generateInfluencedCpt(nodeInstance, cpt, nodePool);
-	}
-
-	private Cpt generateAPrioriCpt(NodeInstance nodeInstance, Cpt cpt) {
-		cpt.setProbabilities(nodeInstance.apriori);
+		cpt.setProbabilities(nodeInstance.cpt.size() == 0
+				? nodeInstance.apriori
+				: joinCPTSegments(nodeInstance));
 		return cpt;
 	}
 
-	private Cpt generateInfluencedCpt(
-			NodeInstance nodeInstance, Cpt cpt, NodePool nodePool) {
-		cpt.setProbabilities(nodeInstance.apriori);
-		throw new RuntimeException("Unimplemented."); // TODO
+	private String joinCPTSegments(NodeInstance nodeInstance) {
+		List<String> pSegments = new LinkedList<String>();
+		for (CptSegment cptSegment : nodeInstance.cpt)
+			pSegments.add(cptSegment.getP());
+		return join(pSegments, " ");
+	}
+
+	private Node generateGenieNode(String key, NodePool nodePool) {
+		Node node = new Node();
+		node.setId(key);
+		node.setName(nodePool.get(key).name);
+		return node;
+	}
+
+	private String join(List<String> items, String delimiter) {
+		StringBuffer sb = new StringBuffer();
+		for (int i = 1; i <= items.size(); i += 1)
+			sb.append(items.get(i - 1)).append(
+					i == items.size() ? "" : delimiter);
+		return sb.toString();
 	}
 }
