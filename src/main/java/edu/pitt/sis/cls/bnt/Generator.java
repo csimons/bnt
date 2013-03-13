@@ -53,21 +53,25 @@ public class Generator {
 		for (Slice slice : bnt.getDomain().getSlice()) {
 			LOG.debug("generateDomainLayers: Processing domain slice [" + slice.getId() + "]");
 			List<NodeInstance> domainLayer = new LinkedList<NodeInstance>();
+			Map<String, String> layerSymbols = new HashMap<String, String>();
+			for (DomainObject domainObj : slice.getDomainObject())
+				for (Node templateNode : bnt.getTemplate().getNode())
+					if (templateNode.getName().equals(domainObj.getBinding()))
+						layerSymbols.put(templateNode.getName(), domainObj.getName());
 			for (DomainObject domainObj : slice.getDomainObject()) {
 				LOG.debug("generateDomainLayers:  Processing domain object [" + domainObj.getName() + "]");
 				for (Node templateNode : bnt.getTemplate().getNode()) {
 					LOG.debug("generateDomainLayers:   Checking nodeTemplate [" + templateNode.getName() + "]");
-					if (!templateNode.getBinding().equals(domainObj.getBinding()))
-						continue;
-					else {
+					if (templateNode.getName().equals(domainObj.getBinding())) {
 						NodeInstance nodeInstance = new NodeInstance();
 						nodeInstance.id = domainObj.getName();
 						nodeInstance.cpt = templateNode.getCptSegment();
 						nodeInstance.states = templateNode.getStates();
 						nodeInstance.apriori = templateNode.getApriori();
-						nodeInstance.parents = templateNode.getParents();
 						nodeInstance.templateNodeName = templateNode.getName();
 						nodeInstance.domainSlice = slice.getId();
+						if (templateNode.getParents() != null)
+							nodeInstance.parents = symbolsToInstances(templateNode.getParents(), layerSymbols);
 						nodeInstance.name = String.format("%s::%s[d=%s]",
 								nodeInstance.id,
 								nodeInstance.templateNodeName,
@@ -80,6 +84,15 @@ public class Generator {
 		}
 		LOG.debug("domainLayers.size(): " + domainLayers.size());
 		return domainLayers;
+	}
+
+	private String symbolsToInstances(String symbols, Map<String, String> resolver) {
+		StringBuffer result = new StringBuffer();
+		String[] symbolTokens = symbols.split(" ");
+		for (int i = 1; i <= symbolTokens.length; i += 1)
+			result.append(resolver.get(symbolTokens[i - 1])).append(
+					i == symbolTokens.length ? "" : " ");
+		return result.toString();
 	}
 
 	private NodePool collapseDomainLayers(

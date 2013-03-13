@@ -3,20 +3,20 @@
 <bnt>
 	<domain>
 		<slice id="g0">
-			<domain-object binding="m" name="anne" />
-			<domain-object binding="f" name="brian" />
-			<domain-object binding="c" name="dorothy" />
+			<domain-object binding="mother" name="anne" />
+			<domain-object binding="father" name="brian" />
+			<domain-object binding="child"  name="dorothy" />
 		</slice>
 		<slice id="g1">
-			<domain-object binding="m" name="camille" />
-			<domain-object binding="f" name="pierre" />
-			<domain-object binding="c" name="anne" />
+			<domain-object binding="mother" name="camille" />
+			<domain-object binding="father" name="pierre" />
+			<domain-object binding="child"  name="anne" />
 		</slice>
 	</domain>
 	<template>
-		<node name="mother" binding="m" states="AA Aa aa" apriori="0.25 0.50 0.25" />
-		<node name="father" binding="f" states="AA Aa aa" apriori="0.25 0.50 0.25" />
-		<node name="child"  binding="c" states="AA Aa aa" parents="mother father">
+		<node name="mother" states="AA Aa aa" apriori="0.25 0.50 0.25" />
+		<node name="father" states="AA Aa aa" apriori="0.25 0.50 0.25" />
+		<node name="child"  states="AA Aa aa" parents="mother father">
 			<cpt-segment p="1.00 0.00 0.00" />
 			<cpt-segment p="0.50 0.50 0.00" />
 			<cpt-segment p="0.00 1.00 0.00" />
