@@ -1,3 +1,5 @@
+- Format XDSL output.
+- Accommodate GeNIe's single-pass node dependency issues.
 - Syntactic validation for BNT language.
 - Semantic validation for BNT language based on Haddawy's constraints.
 - Rewrite the entire project as an XSL template.
