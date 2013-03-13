@@ -8,6 +8,8 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
+import org.apache.log4j.Logger;
+
 import edu.pitt.sis.cls.bnt.lang.CptSegment;
 import edu.pitt.sis.cls.bnt.xdsl.Cpt;
 import edu.pitt.sis.cls.bnt.xdsl.Extensions;
@@ -18,15 +20,26 @@ import edu.pitt.sis.cls.bnt.xdsl.Smile;
 import edu.pitt.sis.cls.bnt.xdsl.State;
 
 public class XDSLWriter implements Writer {
+	private final Logger LOG;
+
+	public XDSLWriter() {
+		LOG = Logger.getLogger(this.getClass().getCanonicalName());
+	}
+
 	public String format(NodePool nodePool) {
 		Smile smile = new Smile();
-		Extensions extensions = smile.getExtensions();
+		Extensions extensions = new Extensions();
+		smile.setExtensions(extensions);
 
-		Nodes nodes = smile.getNodes();
-		for (String key : nodePool.keySet())
+		Nodes nodes = new Nodes();
+		for (String key : nodePool.keySet()) {
+			LOG.debug("Adding node [" + key +"].");
 			nodes.getCpt().add(generateCpt(key, nodePool));
+		}
+		smile.setNodes(nodes);
 
-		Genie genie = extensions.getGenie();
+		Genie genie = new Genie();
+		extensions.setGenie(genie);
 		genie.setVersion(new BigDecimal("1.0"));
 		genie.setApp("GeNIe 2.0.4535.0");
 		genie.setName("Network1");

@@ -1,13 +1,25 @@
 package edu.pitt.sis.cls.bnt;
 
+import org.apache.log4j.Logger;
+
 
 public class Driver {
+	private final Logger LOG;
+
+	public Driver() {
+		LOG = Logger.getLogger(this.getClass().getCanonicalName());
+	}
+
 	private static void usage() {
 		System.out.println(Constants.USAGE);
 		System.exit(1);
 	}
 
 	public static void main(String[] args) throws Exception {
+		(new Driver()).run(args);
+	}
+
+	public void run(String[] args) throws Exception {
 		String sourceFilename = null;
 		String outputFilename = null;
 
@@ -24,10 +36,11 @@ public class Driver {
 		NodePool nodePool
 			= (new Generator()).constructPoolFromFile(sourceFilename);
 
+		LOG.debug("nodePool size: " + nodePool.size());
 		for (String key : nodePool.keySet())
-			System.out.println("Got nodeInstance " + nodePool.get(key).name);
+			LOG.debug("Got nodeInstance " + nodePool.get(key).name);
 
-		System.out.println("XDSL:\n\n" + (new XDSLWriter()).format(nodePool));
+		LOG.debug("XDSL:\n" + (new XDSLWriter()).format(nodePool));
 	}
 
 	private static String getOutputFilename(String sourceFilename) {

@@ -27,6 +27,10 @@ public class NodePool {
 		return nodePool.keySet();
 	}
 
+	public int size() {
+		return nodePool.size();
+	}
+
 	public boolean containsKey(String key) {
 		return nodePool.containsKey(key);
 	}

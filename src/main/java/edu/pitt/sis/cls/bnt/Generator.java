@@ -7,15 +7,19 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import edu.pitt.sis.cls.bnt.lang.Bnt;
 import edu.pitt.sis.cls.bnt.lang.DomainObject;
 import edu.pitt.sis.cls.bnt.lang.Node;
 import edu.pitt.sis.cls.bnt.lang.Slice;
 
 public class Generator {
+	private final Logger LOG;
 	private Map<String, Class<? extends Parser>> parsers;
 
 	public Generator() {
+		LOG = Logger.getLogger(this.getClass().getCanonicalName());
 		parsers = new HashMap<String, Class<? extends Parser>>();
 		parsers.put(Constants.BNT_EXTENSION, XMLParser.class);
 		parsers.put(Constants.XML_EXTENSION, XMLParser.class);
@@ -50,7 +54,8 @@ public class Generator {
 			List<NodeInstance> domainLayer = new LinkedList<NodeInstance>();
 			for (DomainObject domainObj : slice.getDomainObject()) {
 				for (Node templateNode : bnt.getTemplate().getNode()) {
-					if (!templateNode.getBinding().equals(domainObj))
+					LOG.debug("generateDomainLayers: Processing nodeTemplate [" + templateNode.getName() + "]");
+					if (!templateNode.getBinding().equals(domainObj.getBinding()))
 						continue;
 					else {
 						NodeInstance nodeInstance = new NodeInstance();
@@ -61,7 +66,7 @@ public class Generator {
 						nodeInstance.parents = templateNode.getParents();
 						nodeInstance.templateNodeName = templateNode.getName();
 						nodeInstance.domainSlice = slice.getId();
-						nodeInstance.name = String.format("%s::%s[d=%d]",
+						nodeInstance.name = String.format("%s::%s[d=%s]",
 								nodeInstance.id,
 								nodeInstance.templateNodeName,
 								nodeInstance.domainSlice);
@@ -69,15 +74,20 @@ public class Generator {
 					}
 				}
 			}
+			domainLayers.add(domainLayer);
 		}
+		LOG.debug("domainLayers.size(): " + domainLayers.size());
 		return domainLayers;
 	}
 
 	private NodePool collapseDomainLayers(
 			List<List<NodeInstance>> domainLayers) {
+		LOG.debug("collapseDomainLayers(): domainLayers.size(): " + domainLayers.size());
 		NodePool nodePool = new NodePool();
 		for (List<NodeInstance> domainLayer : domainLayers) {
+			LOG.debug("Processing domainLayer with size: " + domainLayer.size());
 			for (NodeInstance nodeInstance : domainLayer) {
+				LOG.debug(" Processing nodeInstance [" + nodeInstance.id + "]");
 				if (!nodePool.containsKey(nodeInstance.id))
 					nodePool.put(nodeInstance.id, nodeInstance);
 				else {
@@ -86,12 +96,14 @@ public class Generator {
 							&& nodeInstance.cpt != null)
 						poolInstance.cpt = nodeInstance.cpt;
 					poolInstance.name = poolInstance.name
-							+ String.format("::%s[d=%d]",
+							+ String.format("::%s[d=%s]",
 									nodeInstance.templateNodeName,
 									nodeInstance.domainSlice);
+					
 				}
 			}
 		}
+		LOG.debug("collapseDomainLayers(): nodePool.size(): " + nodePool.size());
 		return nodePool;
 	}
 }
