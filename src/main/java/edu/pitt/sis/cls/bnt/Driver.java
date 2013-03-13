@@ -1,5 +1,8 @@
 package edu.pitt.sis.cls.bnt;
 
+import java.io.File;
+import java.io.PrintWriter;
+
 import org.apache.log4j.Logger;
 
 
@@ -40,7 +43,14 @@ public class Driver {
 		for (String key : nodePool.keySet())
 			LOG.debug("Got nodeInstance " + nodePool.get(key).name);
 
-		LOG.debug("XDSL:\n" + (new XDSLWriter()).format(nodePool));
+		String output = (new XDSLWriter()).format(nodePool);
+		LOG.debug("XDSL:\n" + output);
+
+		LOG.debug("Writing to file [" + outputFilename + "]");
+		File outputFile = new File(outputFilename);
+		PrintWriter pw = new PrintWriter(outputFile);
+		pw.print(output);
+		pw.close();
 	}
 
 	private static String getOutputFilename(String sourceFilename) {

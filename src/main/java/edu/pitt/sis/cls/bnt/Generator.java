@@ -51,10 +51,12 @@ public class Generator {
 	private List<List<NodeInstance>> generateDomainLayers(Bnt bnt) {
 		List<List<NodeInstance>> domainLayers = new LinkedList<List<NodeInstance>>();
 		for (Slice slice : bnt.getDomain().getSlice()) {
+			LOG.debug("generateDomainLayers: Processing domain slice [" + slice.getId() + "]");
 			List<NodeInstance> domainLayer = new LinkedList<NodeInstance>();
 			for (DomainObject domainObj : slice.getDomainObject()) {
+				LOG.debug("generateDomainLayers:  Processing domain object [" + domainObj.getName() + "]");
 				for (Node templateNode : bnt.getTemplate().getNode()) {
-					LOG.debug("generateDomainLayers: Processing nodeTemplate [" + templateNode.getName() + "]");
+					LOG.debug("generateDomainLayers:   Checking nodeTemplate [" + templateNode.getName() + "]");
 					if (!templateNode.getBinding().equals(domainObj.getBinding()))
 						continue;
 					else {
@@ -85,15 +87,15 @@ public class Generator {
 		LOG.debug("collapseDomainLayers(): domainLayers.size(): " + domainLayers.size());
 		NodePool nodePool = new NodePool();
 		for (List<NodeInstance> domainLayer : domainLayers) {
-			LOG.debug("Processing domainLayer with size: " + domainLayer.size());
+			LOG.debug("collapseDomainLayers(): Processing domainLayer with size: " + domainLayer.size());
 			for (NodeInstance nodeInstance : domainLayer) {
-				LOG.debug(" Processing nodeInstance [" + nodeInstance.id + "]");
+				LOG.debug("collapseDomainLayers():  Processing nodeInstance [" + nodeInstance.id + "]");
 				if (!nodePool.containsKey(nodeInstance.id))
 					nodePool.put(nodeInstance.id, nodeInstance);
 				else {
 					NodeInstance poolInstance = nodePool.get(nodeInstance.id);
-					if (poolInstance.cpt == null
-							&& nodeInstance.cpt != null)
+					if (poolInstance.cpt.size() == 0
+							&& nodeInstance.cpt.size() > 0)
 						poolInstance.cpt = nodeInstance.cpt;
 					poolInstance.name = poolInstance.name
 							+ String.format("::%s[d=%s]",

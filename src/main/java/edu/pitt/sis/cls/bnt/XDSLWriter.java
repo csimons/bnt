@@ -2,6 +2,7 @@ package edu.pitt.sis.cls.bnt;
 
 import java.io.StringWriter;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,6 +29,10 @@ public class XDSLWriter implements Writer {
 
 	public String format(NodePool nodePool) {
 		Smile smile = new Smile();
+		smile.setVersion(new BigDecimal("1.0"));
+		smile.setId("Network1");
+		smile.setNumsamples(new BigInteger("1000"));
+		smile.setDiscsamples(new BigInteger("10000"));
 		Extensions extensions = new Extensions();
 		smile.setExtensions(extensions);
 
