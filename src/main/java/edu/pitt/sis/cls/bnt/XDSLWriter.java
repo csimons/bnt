@@ -109,7 +109,8 @@ public class XDSLWriter implements Writer {
 		font.setColor("000000");
 		node.setFont(font);
 
-		node.setPosition("200 200 200 200");
+		// Right edge, bottom, left edge, top.
+		node.setPosition("180 100 20 20");
 
 		return node;
 	}
