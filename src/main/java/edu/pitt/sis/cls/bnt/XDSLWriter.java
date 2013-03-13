@@ -73,6 +73,7 @@ public class XDSLWriter implements Writer {
 			state.setId(states[i]);
 			cpt.getState().add(state);
 		}
+		cpt.setParents(nodeInstance.parents);
 		cpt.setProbabilities(nodeInstance.cpt.size() == 0
 				? nodeInstance.apriori
 				: joinCPTSegments(nodeInstance));

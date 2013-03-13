@@ -95,8 +95,10 @@ public class Generator {
 				else {
 					NodeInstance poolInstance = nodePool.get(nodeInstance.id);
 					if (poolInstance.cpt.size() == 0
-							&& nodeInstance.cpt.size() > 0)
+							&& nodeInstance.cpt.size() > 0) {
 						poolInstance.cpt = nodeInstance.cpt;
+						poolInstance.parents = nodeInstance.parents;
+					}
 					poolInstance.name = poolInstance.name
 							+ String.format("::%s[d=%s]",
 									nodeInstance.templateNodeName,
