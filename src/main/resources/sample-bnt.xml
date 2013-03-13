@@ -3,14 +3,14 @@
 <bnt>
 	<domain>
 		<slice id="g0">
-			<domain-object binding="mother" name="anne" />
-			<domain-object binding="father" name="brian" />
-			<domain-object binding="child"  name="dorothy" />
-		</slice>
-		<slice id="g1">
 			<domain-object binding="mother" name="camille" />
 			<domain-object binding="father" name="pierre" />
 			<domain-object binding="child"  name="anne" />
+		</slice>
+		<slice id="g1">
+			<domain-object binding="mother" name="anne" />
+			<domain-object binding="father" name="brian" />
+			<domain-object binding="child"  name="dorothy" />
 		</slice>
 	</domain>
 	<template>
