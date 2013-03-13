@@ -14,9 +14,12 @@ import org.apache.log4j.Logger;
 import edu.pitt.sis.cls.bnt.lang.CptSegment;
 import edu.pitt.sis.cls.bnt.xdsl.Cpt;
 import edu.pitt.sis.cls.bnt.xdsl.Extensions;
+import edu.pitt.sis.cls.bnt.xdsl.Font;
 import edu.pitt.sis.cls.bnt.xdsl.Genie;
+import edu.pitt.sis.cls.bnt.xdsl.Interior;
 import edu.pitt.sis.cls.bnt.xdsl.Node;
 import edu.pitt.sis.cls.bnt.xdsl.Nodes;
+import edu.pitt.sis.cls.bnt.xdsl.Outline;
 import edu.pitt.sis.cls.bnt.xdsl.Smile;
 import edu.pitt.sis.cls.bnt.xdsl.State;
 
@@ -91,6 +94,21 @@ public class XDSLWriter implements Writer {
 		Node node = new Node();
 		node.setId(key);
 		node.setName(nodePool.get(key).name);
+
+		Interior interior = new Interior();
+		interior.setColor("e5f6f7");
+		node.setInterior(interior);
+	
+		Outline outline = new Outline();
+		outline.setColor(new BigInteger("000080"));
+
+		Font font = new Font();
+		font.setName("Arial");
+		font.setSize(new BigInteger("8"));
+		font.setColor(new BigInteger("000000"));
+
+		node.setPosition("200 200 200 200");
+
 		return node;
 	}
 
