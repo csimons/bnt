@@ -100,13 +100,13 @@ public class XDSLWriter implements Writer {
 		node.setInterior(interior);
 	
 		Outline outline = new Outline();
-		outline.setColor(new BigInteger("000080"));
+		outline.setColor("000080");
 		node.setOutline(outline);
 
 		Font font = new Font();
 		font.setName("Arial");
 		font.setSize(new BigInteger("8"));
-		font.setColor(new BigInteger("000000"));
+		font.setColor("000000");
 		node.setFont(font);
 
 		node.setPosition("200 200 200 200");

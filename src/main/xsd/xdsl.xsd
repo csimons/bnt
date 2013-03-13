@@ -69,17 +69,17 @@
   <xs:element name="name" type="xs:anyURI"/>
   <xs:element name="interior">
     <xs:complexType>
-      <xs:attribute name="color" use="required" type="xs:NCName"/>
+      <xs:attribute name="color" use="required" type="xs:string"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="outline">
     <xs:complexType>
-      <xs:attribute name="color" use="required" type="xs:integer"/>
+      <xs:attribute name="color" use="required" type="xs:string"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="font">
     <xs:complexType>
-      <xs:attribute name="color" use="required" type="xs:integer"/>
+      <xs:attribute name="color" use="required" type="xs:string"/>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
       <xs:attribute name="size" use="required" type="xs:integer"/>
     </xs:complexType>
