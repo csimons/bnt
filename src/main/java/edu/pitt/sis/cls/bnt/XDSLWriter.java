@@ -60,6 +60,7 @@ public class XDSLWriter implements Writer {
 		try {
 			JAXBContext jc = JAXBContext.newInstance("edu.pitt.sis.cls.bnt.xdsl");
 			Marshaller m = jc.createMarshaller();
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			m.marshal(smile, sw);
 			result = sw.toString();
 		} catch (Exception e) {}
