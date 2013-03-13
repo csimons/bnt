@@ -42,7 +42,6 @@
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="cpt-segment"/>
       </xs:sequence>
       <xs:attribute name="apriori"/>
-      <xs:attribute name="binding" use="required" type="xs:NCName"/>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
       <xs:attribute name="parents"/>
       <xs:attribute name="states" use="required"/>
