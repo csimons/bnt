@@ -39,10 +39,6 @@ public class Driver {
 		NodePool nodePool
 			= (new Generator()).constructPoolFromFile(sourceFilename);
 
-		LOG.debug("nodePool size: " + nodePool.size());
-		for (String key : nodePool.keySet())
-			LOG.debug("Got nodeInstance " + nodePool.get(key).name);
-
 		String output = (new XDSLWriter()).format(nodePool);
 		LOG.debug("XDSL:\n" + output);
 

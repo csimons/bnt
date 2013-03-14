@@ -7,19 +7,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import edu.pitt.sis.cls.bnt.lang.Bnt;
 import edu.pitt.sis.cls.bnt.lang.DomainObject;
 import edu.pitt.sis.cls.bnt.lang.Node;
 import edu.pitt.sis.cls.bnt.lang.Slice;
 
 public class Generator {
-	private final Logger LOG;
 	private Map<String, Class<? extends Parser>> parsers;
 
 	public Generator() {
-		LOG = Logger.getLogger(this.getClass().getCanonicalName());
 		parsers = new HashMap<String, Class<? extends Parser>>();
 		parsers.put(Constants.BNT_EXTENSION, XMLParser.class);
 		parsers.put(Constants.XML_EXTENSION, XMLParser.class);
@@ -51,7 +47,6 @@ public class Generator {
 	private List<List<NodeInstance>> generateDomainLayers(Bnt bnt) {
 		List<List<NodeInstance>> domainLayers = new LinkedList<List<NodeInstance>>();
 		for (Slice slice : bnt.getDomain().getSlice()) {
-			LOG.debug("generateDomainLayers: Processing domain slice [" + slice.getId() + "]");
 			List<NodeInstance> domainLayer = new LinkedList<NodeInstance>();
 			Map<String, String> layerSymbols = new HashMap<String, String>();
 			for (DomainObject domainObj : slice.getDomainObject())
@@ -59,9 +54,7 @@ public class Generator {
 					if (templateNode.getName().equals(domainObj.getBinding()))
 						layerSymbols.put(templateNode.getName(), domainObj.getName());
 			for (DomainObject domainObj : slice.getDomainObject()) {
-				LOG.debug("generateDomainLayers:  Processing domain object [" + domainObj.getName() + "]");
 				for (Node templateNode : bnt.getTemplate().getNode()) {
-					LOG.debug("generateDomainLayers:   Checking nodeTemplate [" + templateNode.getName() + "]");
 					if (templateNode.getName().equals(domainObj.getBinding())) {
 						NodeInstance nodeInstance = new NodeInstance();
 						nodeInstance.id = domainObj.getName();
@@ -82,7 +75,6 @@ public class Generator {
 			}
 			domainLayers.add(domainLayer);
 		}
-		LOG.debug("domainLayers.size(): " + domainLayers.size());
 		return domainLayers;
 	}
 
@@ -97,12 +89,9 @@ public class Generator {
 
 	private NodePool collapseDomainLayers(
 			List<List<NodeInstance>> domainLayers) {
-		LOG.debug("collapseDomainLayers(): domainLayers.size(): " + domainLayers.size());
 		NodePool nodePool = new NodePool();
 		for (List<NodeInstance> domainLayer : domainLayers) {
-			LOG.debug("collapseDomainLayers(): Processing domainLayer with size: " + domainLayer.size());
 			for (NodeInstance nodeInstance : domainLayer) {
-				LOG.debug("collapseDomainLayers():  Processing nodeInstance [" + nodeInstance.id + "]");
 				if (!nodePool.containsKey(nodeInstance.id))
 					nodePool.put(nodeInstance.id, nodeInstance);
 				else {
@@ -120,7 +109,6 @@ public class Generator {
 				}
 			}
 		}
-		LOG.debug("collapseDomainLayers(): nodePool.size(): " + nodePool.size());
 		return nodePool;
 	}
 }
