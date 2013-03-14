@@ -22,15 +22,17 @@
         <node name="mother" states="AA Aa aa" apriori="0.25 0.50 0.25" />
         <node name="father" states="AA Aa aa" apriori="0.25 0.50 0.25" />
         <node name="child"  states="AA Aa aa" parents="mother father">
-            <cpt-segment p="1.00 0.00 0.00" />
-            <cpt-segment p="0.50 0.50 0.00" />
-            <cpt-segment p="0.00 1.00 0.00" />
-            <cpt-segment p="0.50 0.50 0.00" />
-            <cpt-segment p="0.25 0.50 0.25" />
-            <cpt-segment p="0.00 0.50 0.50" />
-            <cpt-segment p="0.00 1.00 0.00" />
-            <cpt-segment p="0.00 0.50 0.50" />
-            <cpt-segment p="0.00 0.00 1.00" />
+            <cpt>
+                1.00 0.00 0.00 <!-- AA, Aa, aa for (M,F) = (AA,AA) -->
+                0.50 0.50 0.00 <!-- AA, Aa, aa for (M,F) = (AA,Aa) -->
+                0.00 1.00 0.00 <!-- AA, Aa, aa for (M,F) = (AA,aa) -->
+                0.50 0.50 0.00 <!-- AA, Aa, aa for (M,F) = (Aa,AA) -->
+                0.25 0.50 0.25 <!-- AA, Aa, aa for (M,F) = (Aa,Aa) -->
+                0.00 0.50 0.50 <!-- AA, Aa, aa for (M,F) = (Aa,aa) -->
+                0.00 1.00 0.00 <!-- AA, Aa, aa for (M,F) = (aa,AA) -->
+                0.00 0.50 0.50 <!-- AA, Aa, aa for (M,F) = (aa,Aa) -->
+                0.00 0.00 1.00 <!-- AA, Aa, aa for (M,F) = (aa,aa) -->
+            </cpt>
         </node>
     </template>
 </bnt>

@@ -39,7 +39,7 @@
   <xs:element name="node">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="cpt-segment"/>
+        <xs:element minOccurs="0" ref="cpt"/>
       </xs:sequence>
       <xs:attribute name="apriori"/>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
@@ -47,9 +47,5 @@
       <xs:attribute name="states" use="required"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="cpt-segment">
-    <xs:complexType>
-      <xs:attribute name="p" use="required"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:element name="cpt" type="xs:string"/>
 </xs:schema>

@@ -3,13 +3,11 @@ package edu.pitt.sis.cls.bnt;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
-import edu.pitt.sis.cls.bnt.lang.CptSegment;
 import edu.pitt.sis.cls.bnt.xdsl.Barchart;
 import edu.pitt.sis.cls.bnt.xdsl.Cpt;
 import edu.pitt.sis.cls.bnt.xdsl.Extensions;
@@ -72,17 +70,10 @@ public class XDSLWriter implements Writer {
             cpt.getState().add(state);
         }
         cpt.setParents(nodeInstance.parents);
-        cpt.setProbabilities(nodeInstance.cpt.size() == 0
-                ? nodeInstance.apriori
-                : joinCPTSegments(nodeInstance));
+        cpt.setProbabilities(nodeInstance.cpt != null
+                ? nodeInstance.cpt
+                : nodeInstance.apriori);
         return cpt;
-    }
-
-    private String joinCPTSegments(NodeInstance nodeInstance) {
-        List<String> pSegments = new LinkedList<String>();
-        for (CptSegment cptSegment : nodeInstance.cpt)
-            pSegments.add(cptSegment.getP());
-        return join(pSegments, " ");
     }
 
     private Node generateGenieNode(String key, NodePool nodePool) {
@@ -112,13 +103,5 @@ public class XDSLWriter implements Writer {
         node.setBarchart(barchart);
 
         return node;
-    }
-
-    private String join(List<String> items, String delimiter) {
-        StringBuffer sb = new StringBuffer();
-        for (int i = 1; i <= items.size(); i += 1)
-            sb.append(items.get(i - 1)).append(
-                    i == items.size() ? "" : delimiter);
-        return sb.toString();
     }
 }

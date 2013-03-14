@@ -1,8 +1,5 @@
 package edu.pitt.sis.cls.bnt;
 
-import java.util.List;
-
-import edu.pitt.sis.cls.bnt.lang.CptSegment;
 
 public class NodeInstance {
     /**
@@ -18,7 +15,7 @@ public class NodeInstance {
     /**
      * Conditional probability table.
      */
-    public List<CptSegment> cpt;
+    public String cpt;
 
     /**
      * Space-delimited list of states.

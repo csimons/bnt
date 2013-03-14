@@ -58,7 +58,7 @@ public class Generator {
                     if (templateNode.getName().equals(domainObj.getBinding())) {
                         NodeInstance nodeInstance = new NodeInstance();
                         nodeInstance.id = domainObj.getName();
-                        nodeInstance.cpt = templateNode.getCptSegment();
+                        nodeInstance.cpt = templateNode.getCpt();
                         nodeInstance.states = templateNode.getStates();
                         nodeInstance.apriori = templateNode.getApriori();
                         nodeInstance.templateNodeName = templateNode.getName();
@@ -96,8 +96,8 @@ public class Generator {
                     nodePool.put(nodeInstance.id, nodeInstance);
                 else {
                     NodeInstance poolInstance = nodePool.get(nodeInstance.id);
-                    if (poolInstance.cpt.size() == 0
-                            && nodeInstance.cpt.size() > 0) {
+                    if (poolInstance.cpt == null
+                            && nodeInstance.cpt != null) {
                         poolInstance.cpt = nodeInstance.cpt;
                         poolInstance.parents = nodeInstance.parents;
                     }
