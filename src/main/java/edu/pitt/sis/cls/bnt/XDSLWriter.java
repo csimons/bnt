@@ -40,8 +40,8 @@ public class XDSLWriter implements Writer {
 		smile.setExtensions(extensions);
 
 		Nodes nodes = new Nodes();
-		for (String key : nodePool.keySet()) {
-			LOG.debug("Adding node [" + key +"].");
+		for (String key : nodePool.dependencySortedKeyList()) {
+			LOG.debug("Processing sorted nodePool key [" + key +"].");
 			nodes.getCpt().add(generateCpt(key, nodePool));
 		}
 		smile.setNodes(nodes);
