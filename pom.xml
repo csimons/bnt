@@ -48,6 +48,8 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <!-- <finalName>bnt</finalName> -->
                     <archive>
                         <manifest>
                             <mainClass>edu.pitt.sis.cls.bnt.Driver</mainClass>
