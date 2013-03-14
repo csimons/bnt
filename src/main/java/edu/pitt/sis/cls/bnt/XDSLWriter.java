@@ -39,8 +39,10 @@ public class XDSLWriter implements Writer {
 		Extensions extensions = new Extensions();
 		smile.setExtensions(extensions);
 
+		List<String> sortedInstanceIDs = nodePool.dependencySortedKeyList();
+
 		Nodes nodes = new Nodes();
-		for (String key : nodePool.dependencySortedKeyList()) {
+		for (String key : sortedInstanceIDs) {
 			LOG.debug("Processing sorted nodePool key [" + key +"].");
 			nodes.getCpt().add(generateCpt(key, nodePool));
 		}
@@ -52,7 +54,7 @@ public class XDSLWriter implements Writer {
 		genie.setApp("GeNIe 2.0.4535.0");
 		genie.setName("Network1");
 		genie.setFaultnameformat("nodestate");
-		for (String key : nodePool.keySet())
+		for (String key : sortedInstanceIDs)
 			genie.getNode().add(generateGenieNode(key, nodePool));
 
 		StringWriter sw = new StringWriter();
