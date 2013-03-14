@@ -62,6 +62,7 @@
         <xs:element ref="outline"/>
         <xs:element ref="font"/>
         <xs:element ref="position"/>
+        <xs:element ref="barchart"/>
       </xs:sequence>
       <xs:attribute name="id" use="required" type="xs:NCName"/>
     </xs:complexType>
@@ -85,4 +86,9 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="position" type="xs:string"/>
+  <xs:element name="barchart">
+    <xs:complexType>
+      <xs:attribute name="active" use="required" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
