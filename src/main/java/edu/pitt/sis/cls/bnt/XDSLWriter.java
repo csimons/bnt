@@ -10,6 +10,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
 import edu.pitt.sis.cls.bnt.lang.CptSegment;
+import edu.pitt.sis.cls.bnt.xdsl.Barchart;
 import edu.pitt.sis.cls.bnt.xdsl.Cpt;
 import edu.pitt.sis.cls.bnt.xdsl.Extensions;
 import edu.pitt.sis.cls.bnt.xdsl.Font;
@@ -105,6 +106,10 @@ public class XDSLWriter implements Writer {
 
         // Right edge, bottom, left edge, top.
         node.setPosition("180 100 20 20");
+
+        Barchart barchart = new Barchart();
+        barchart.setActive(false);
+        node.setBarchart(barchart);
 
         return node;
     }
