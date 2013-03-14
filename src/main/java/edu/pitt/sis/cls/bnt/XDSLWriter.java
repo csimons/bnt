@@ -9,8 +9,6 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
-import org.apache.log4j.Logger;
-
 import edu.pitt.sis.cls.bnt.lang.CptSegment;
 import edu.pitt.sis.cls.bnt.xdsl.Cpt;
 import edu.pitt.sis.cls.bnt.xdsl.Extensions;
@@ -24,12 +22,6 @@ import edu.pitt.sis.cls.bnt.xdsl.Smile;
 import edu.pitt.sis.cls.bnt.xdsl.State;
 
 public class XDSLWriter implements Writer {
-	private final Logger LOG;
-
-	public XDSLWriter() {
-		LOG = Logger.getLogger(this.getClass().getCanonicalName());
-	}
-
 	public String format(NodePool nodePool) {
 		Smile smile = new Smile();
 		smile.setVersion(new BigDecimal("1.0"));
@@ -43,7 +35,6 @@ public class XDSLWriter implements Writer {
 
 		Nodes nodes = new Nodes();
 		for (String key : sortedInstanceIDs) {
-			LOG.debug("Processing sorted nodePool key [" + key +"].");
 			nodes.getCpt().add(generateCpt(key, nodePool));
 		}
 		smile.setNodes(nodes);

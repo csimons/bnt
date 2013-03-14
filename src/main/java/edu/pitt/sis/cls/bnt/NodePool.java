@@ -39,14 +39,19 @@ public class NodePool {
 				String[] deps = current.parents.split(" ");
 				int nDeps = deps.length;
 				int nDepsFound = 0;
-				for (int k = 0; k < deps.length; k += 1) {
+				int maxDepIdx = 0;
+				for (int j = 0; j < deps.length; j += 1) {
 					boolean found = false;
-					for (String sk : sortedKeys)
-						if (sk.equals(deps[k]))
+					for (int k = 0; k < sortedKeys.size(); k += 1)
+						if (sortedKeys.get(k).equals(deps[j])) {
 							found = true;
+							maxDepIdx = k > maxDepIdx ? k : maxDepIdx; 
+						}
 					nDepsFound += found ? 1 : 0;
 				}
-				if (nDepsFound == nDeps || i == sortedKeys.size())
+				if (nDepsFound == nDeps)
+					sortedKeys.add(maxDepIdx + 1, keys.get(i));
+				else if (i == sortedKeys.size())
 					sortedKeys.add(keys.get(i));
 			}
 		}
