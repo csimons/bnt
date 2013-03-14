@@ -45,26 +45,31 @@ public class Generator {
     }
 
     private List<List<NodeInstance>> generateDomainLayers(Bnt bnt) {
-        List<List<NodeInstance>> domainLayers = new LinkedList<List<NodeInstance>>();
+        List<List<NodeInstance>> domainLayers
+                = new LinkedList<List<NodeInstance>>();
         for (Slice slice : bnt.getDomain().getSlice()) {
             List<NodeInstance> domainLayer = new LinkedList<NodeInstance>();
             Map<String, String> layerSymbols = new HashMap<String, String>();
             for (DomainObject domainObj : slice.getDomainObject())
                 for (Node templateNode : bnt.getTemplate().getNode())
                     if (templateNode.getName().equals(domainObj.getBinding()))
-                        layerSymbols.put(templateNode.getName(), domainObj.getName());
+                        layerSymbols.put(
+                                templateNode.getName(), domainObj.getName());
             for (DomainObject domainObj : slice.getDomainObject()) {
                 for (Node templateNode : bnt.getTemplate().getNode()) {
-                    if (templateNode.getName().equals(domainObj.getBinding())) {
+                    if (templateNode.getName().equals(
+                            domainObj.getBinding())) {
                         NodeInstance nodeInstance = new NodeInstance();
                         nodeInstance.id = domainObj.getName();
                         nodeInstance.cpt = templateNode.getCpt();
                         nodeInstance.states = templateNode.getStates();
                         nodeInstance.apriori = templateNode.getApriori();
-                        nodeInstance.templateNodeName = templateNode.getName();
                         nodeInstance.domainSlice = slice.getId();
+                        nodeInstance.templateNodeName
+                                = templateNode.getName();
                         if (templateNode.getParents() != null)
-                            nodeInstance.parents = symbolsToInstances(templateNode.getParents(), layerSymbols);
+                            nodeInstance.parents = symbolsToInstances(
+                                    templateNode.getParents(), layerSymbols);
                         nodeInstance.name = String.format("%s::%s[d=%s]",
                                 nodeInstance.id,
                                 nodeInstance.templateNodeName,
@@ -78,7 +83,8 @@ public class Generator {
         return domainLayers;
     }
 
-    private String symbolsToInstances(String symbols, Map<String, String> resolver) {
+    private String symbolsToInstances(
+            String symbols, Map<String, String> resolver) {
         StringBuffer result = new StringBuffer();
         String[] symbolTokens = symbols.split(" ");
         for (int i = 1; i <= symbolTokens.length; i += 1)

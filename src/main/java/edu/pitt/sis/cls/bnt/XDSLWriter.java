@@ -50,7 +50,8 @@ public class XDSLWriter implements Writer {
         StringWriter sw = new StringWriter();
         String result = null;
         try {
-            JAXBContext jc = JAXBContext.newInstance("edu.pitt.sis.cls.bnt.xdsl");
+            JAXBContext jc = JAXBContext.newInstance(
+                    "edu.pitt.sis.cls.bnt.xdsl");
             Marshaller m = jc.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             m.marshal(smile, sw);
