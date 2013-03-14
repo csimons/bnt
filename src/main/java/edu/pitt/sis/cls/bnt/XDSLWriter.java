@@ -22,98 +22,98 @@ import edu.pitt.sis.cls.bnt.xdsl.Smile;
 import edu.pitt.sis.cls.bnt.xdsl.State;
 
 public class XDSLWriter implements Writer {
-	public String format(NodePool nodePool) {
-		Smile smile = new Smile();
-		smile.setVersion(new BigDecimal("1.0"));
-		smile.setId("Network1");
-		smile.setNumsamples(new BigInteger("1000"));
-		smile.setDiscsamples(new BigInteger("10000"));
-		Extensions extensions = new Extensions();
-		smile.setExtensions(extensions);
+    public String format(NodePool nodePool) {
+        Smile smile = new Smile();
+        smile.setVersion(new BigDecimal("1.0"));
+        smile.setId("Network1");
+        smile.setNumsamples(new BigInteger("1000"));
+        smile.setDiscsamples(new BigInteger("10000"));
+        Extensions extensions = new Extensions();
+        smile.setExtensions(extensions);
 
-		List<String> sortedInstanceIDs = nodePool.dependencySortedKeyList();
+        List<String> sortedInstanceIDs = nodePool.dependencySortedKeyList();
 
-		Nodes nodes = new Nodes();
-		for (String key : sortedInstanceIDs) {
-			nodes.getCpt().add(generateCpt(key, nodePool));
-		}
-		smile.setNodes(nodes);
+        Nodes nodes = new Nodes();
+        for (String key : sortedInstanceIDs) {
+            nodes.getCpt().add(generateCpt(key, nodePool));
+        }
+        smile.setNodes(nodes);
 
-		Genie genie = new Genie();
-		extensions.setGenie(genie);
-		genie.setVersion(new BigDecimal("1.0"));
-		genie.setApp("GeNIe 2.0.4535.0");
-		genie.setName("Network1");
-		genie.setFaultnameformat("nodestate");
-		for (String key : sortedInstanceIDs)
-			genie.getNode().add(generateGenieNode(key, nodePool));
+        Genie genie = new Genie();
+        extensions.setGenie(genie);
+        genie.setVersion(new BigDecimal("1.0"));
+        genie.setApp("GeNIe 2.0.4535.0");
+        genie.setName("Network1");
+        genie.setFaultnameformat("nodestate");
+        for (String key : sortedInstanceIDs)
+            genie.getNode().add(generateGenieNode(key, nodePool));
 
-		StringWriter sw = new StringWriter();
-		String result = null;
-		try {
-			JAXBContext jc = JAXBContext.newInstance("edu.pitt.sis.cls.bnt.xdsl");
-			Marshaller m = jc.createMarshaller();
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			m.marshal(smile, sw);
-			result = sw.toString();
-		} catch (Exception e) {}
-		return result;
-	}
+        StringWriter sw = new StringWriter();
+        String result = null;
+        try {
+            JAXBContext jc = JAXBContext.newInstance("edu.pitt.sis.cls.bnt.xdsl");
+            Marshaller m = jc.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            m.marshal(smile, sw);
+            result = sw.toString();
+        } catch (Exception e) {}
+        return result;
+    }
 
-	private Cpt generateCpt(String key, NodePool nodePool) {
-		NodeInstance nodeInstance = nodePool.get(key);
-		Cpt cpt = new Cpt();
-		cpt.setId(nodeInstance.id);
-		String[] states = nodeInstance.states.split(" ");
-		for (int i = 0; i < states.length; i += 1) {
-			State state = new State();
-			state.setId(states[i]);
-			cpt.getState().add(state);
-		}
-		cpt.setParents(nodeInstance.parents);
-		cpt.setProbabilities(nodeInstance.cpt.size() == 0
-				? nodeInstance.apriori
-				: joinCPTSegments(nodeInstance));
-		return cpt;
-	}
+    private Cpt generateCpt(String key, NodePool nodePool) {
+        NodeInstance nodeInstance = nodePool.get(key);
+        Cpt cpt = new Cpt();
+        cpt.setId(nodeInstance.id);
+        String[] states = nodeInstance.states.split(" ");
+        for (int i = 0; i < states.length; i += 1) {
+            State state = new State();
+            state.setId(states[i]);
+            cpt.getState().add(state);
+        }
+        cpt.setParents(nodeInstance.parents);
+        cpt.setProbabilities(nodeInstance.cpt.size() == 0
+                ? nodeInstance.apriori
+                : joinCPTSegments(nodeInstance));
+        return cpt;
+    }
 
-	private String joinCPTSegments(NodeInstance nodeInstance) {
-		List<String> pSegments = new LinkedList<String>();
-		for (CptSegment cptSegment : nodeInstance.cpt)
-			pSegments.add(cptSegment.getP());
-		return join(pSegments, " ");
-	}
+    private String joinCPTSegments(NodeInstance nodeInstance) {
+        List<String> pSegments = new LinkedList<String>();
+        for (CptSegment cptSegment : nodeInstance.cpt)
+            pSegments.add(cptSegment.getP());
+        return join(pSegments, " ");
+    }
 
-	private Node generateGenieNode(String key, NodePool nodePool) {
-		Node node = new Node();
-		node.setId(key);
-		node.setName(nodePool.get(key).name);
+    private Node generateGenieNode(String key, NodePool nodePool) {
+        Node node = new Node();
+        node.setId(key);
+        node.setName(nodePool.get(key).name);
 
-		Interior interior = new Interior();
-		interior.setColor("e5f6f7");
-		node.setInterior(interior);
-	
-		Outline outline = new Outline();
-		outline.setColor("000080");
-		node.setOutline(outline);
+        Interior interior = new Interior();
+        interior.setColor("e5f6f7");
+        node.setInterior(interior);
+    
+        Outline outline = new Outline();
+        outline.setColor("000080");
+        node.setOutline(outline);
 
-		Font font = new Font();
-		font.setName("Arial");
-		font.setSize(new BigInteger("8"));
-		font.setColor("000000");
-		node.setFont(font);
+        Font font = new Font();
+        font.setName("Arial");
+        font.setSize(new BigInteger("8"));
+        font.setColor("000000");
+        node.setFont(font);
 
-		// Right edge, bottom, left edge, top.
-		node.setPosition("180 100 20 20");
+        // Right edge, bottom, left edge, top.
+        node.setPosition("180 100 20 20");
 
-		return node;
-	}
+        return node;
+    }
 
-	private String join(List<String> items, String delimiter) {
-		StringBuffer sb = new StringBuffer();
-		for (int i = 1; i <= items.size(); i += 1)
-			sb.append(items.get(i - 1)).append(
-					i == items.size() ? "" : delimiter);
-		return sb.toString();
-	}
+    private String join(List<String> items, String delimiter) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 1; i <= items.size(); i += 1)
+            sb.append(items.get(i - 1)).append(
+                    i == items.size() ? "" : delimiter);
+        return sb.toString();
+    }
 }
