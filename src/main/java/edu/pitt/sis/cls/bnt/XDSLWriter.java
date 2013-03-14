@@ -105,7 +105,7 @@ public class XDSLWriter implements Writer {
         node.setFont(font);
 
         // Right edge, bottom, left edge, top.
-        node.setPosition("180 100 20 20");
+        node.setPosition("260 60 20 20");
 
         Barchart barchart = new Barchart();
         barchart.setActive(false);
