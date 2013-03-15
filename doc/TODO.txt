@@ -1,4 +1,4 @@
 - Syntactic validation for BNT language.
 - Semantic validation for BNT language based on Haddawy's constraints.
 - Rewrite the entire project as an XSL template.
-- Other source formats? (JSON w/ google-gson, FOL/Haddawy)
+- FOL source format.
