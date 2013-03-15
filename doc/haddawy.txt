@@ -1,47 +1,49 @@
-domain {
-    mother(camille, anne).
-    father(pierre, anne).
-    mother(anne, dorothy).
-    father(brian, dorothy).
-}
+% relations
 
-relations {
-    mother(x, y) :- mother(x), child(y).
-    father(x, y) :- father(x), child(y).
-}
+mother(x, y) :- mother(x), child(y).
+father(x, y) :- father(x), child(y).
 
-probabilities {
-    P(mother(x) = "AA") = 0.25
-    P(mother(x) = "Aa") = 0.5
-    P(mother(x) = "aa") = 0.25
-    P(father(x) = "AA") = 0.25
-    P(father(x) = "Aa") = 0.5
-    P(father(x) = "aa") = 0.25
-    P(child(x) = "AA" | mother(x) = "AA" ^ father(x) = "AA") = 1
-    P(child(x) = "Aa" | mother(x) = "AA" ^ father(x) = "AA") = 0
-    P(child(x) = "aa" | mother(x) = "AA" ^ father(x) = "AA") = 0
-    P(child(x) = "AA" | mother(x) = "AA" ^ father(x) = "Aa") = 0.5
-    P(child(x) = "Aa" | mother(x) = "AA" ^ father(x) = "Aa") = 0.5
-    P(child(x) = "aa" | mother(x) = "AA" ^ father(x) = "Aa") = 0
-    P(child(x) = "AA" | mother(x) = "AA" ^ father(x) = "aa") = 0
-    P(child(x) = "Aa" | mother(x) = "AA" ^ father(x) = "aa") = 1
-    P(child(x) = "aa" | mother(x) = "AA" ^ father(x) = "aa") = 0
-    P(child(x) = "AA" | mother(x) = "Aa" ^ father(x) = "AA") = 0.5
-    P(child(x) = "Aa" | mother(x) = "Aa" ^ father(x) = "AA") = 0.5
-    P(child(x) = "aa" | mother(x) = "Aa" ^ father(x) = "AA") = 0
-    P(child(x) = "AA" | mother(x) = "Aa" ^ father(x) = "Aa") = 0.25
-    P(child(x) = "Aa" | mother(x) = "Aa" ^ father(x) = "Aa") = 0.5
-    P(child(x) = "aa" | mother(x) = "Aa" ^ father(x) = "Aa") = 0.25
-    P(child(x) = "AA" | mother(x) = "Aa" ^ father(x) = "aa") = 0
-    P(child(x) = "Aa" | mother(x) = "Aa" ^ father(x) = "aa") = 0.5
-    P(child(x) = "aa" | mother(x) = "Aa" ^ father(x) = "aa") = 0.5
-    P(child(x) = "AA" | mother(x) = "aa" ^ father(x) = "AA") = 0
-    P(child(x) = "Aa" | mother(x) = "aa" ^ father(x) = "AA") = 1
-    P(child(x) = "aa" | mother(x) = "aa" ^ father(x) = "AA") = 0
-    P(child(x) = "AA" | mother(x) = "aa" ^ father(x) = "Aa") = 0
-    P(child(x) = "Aa" | mother(x) = "aa" ^ father(x) = "Aa") = 0.5
-    P(child(x) = "aa" | mother(x) = "aa" ^ father(x) = "Aa") = 0.5
-    P(child(x) = "AA" | mother(x) = "aa" ^ father(x) = "aa") = 0
-    P(child(x) = "Aa" | mother(x) = "aa" ^ father(x) = "aa") = 0
-    P(child(x) = "aa" | mother(x) = "aa" ^ father(x) = "aa") = 1
-}
+% domain
+
+mother(camille, anne).
+father(pierre, anne).
+mother(anne, dorothy).
+father(brian, dorothy).
+
+% probabilities
+
+P(mother(x) = "AA") = 0.25
+P(mother(x) = "Aa") = 0.5
+P(mother(x) = "aa") = 0.25
+
+P(father(x) = "AA") = 0.25
+P(father(x) = "Aa") = 0.5
+P(father(x) = "aa") = 0.25
+
+P(child(x) = "AA" | mother(x) = "AA" ^ father(x) = "AA") = 1
+P(child(x) = "Aa" | mother(x) = "AA" ^ father(x) = "AA") = 0
+P(child(x) = "aa" | mother(x) = "AA" ^ father(x) = "AA") = 0
+P(child(x) = "AA" | mother(x) = "AA" ^ father(x) = "Aa") = 0.5
+P(child(x) = "Aa" | mother(x) = "AA" ^ father(x) = "Aa") = 0.5
+P(child(x) = "aa" | mother(x) = "AA" ^ father(x) = "Aa") = 0
+P(child(x) = "AA" | mother(x) = "AA" ^ father(x) = "aa") = 0
+P(child(x) = "Aa" | mother(x) = "AA" ^ father(x) = "aa") = 1
+P(child(x) = "aa" | mother(x) = "AA" ^ father(x) = "aa") = 0
+P(child(x) = "AA" | mother(x) = "Aa" ^ father(x) = "AA") = 0.5
+P(child(x) = "Aa" | mother(x) = "Aa" ^ father(x) = "AA") = 0.5
+P(child(x) = "aa" | mother(x) = "Aa" ^ father(x) = "AA") = 0
+P(child(x) = "AA" | mother(x) = "Aa" ^ father(x) = "Aa") = 0.25
+P(child(x) = "Aa" | mother(x) = "Aa" ^ father(x) = "Aa") = 0.5
+P(child(x) = "aa" | mother(x) = "Aa" ^ father(x) = "Aa") = 0.25
+P(child(x) = "AA" | mother(x) = "Aa" ^ father(x) = "aa") = 0
+P(child(x) = "Aa" | mother(x) = "Aa" ^ father(x) = "aa") = 0.5
+P(child(x) = "aa" | mother(x) = "Aa" ^ father(x) = "aa") = 0.5
+P(child(x) = "AA" | mother(x) = "aa" ^ father(x) = "AA") = 0
+P(child(x) = "Aa" | mother(x) = "aa" ^ father(x) = "AA") = 1
+P(child(x) = "aa" | mother(x) = "aa" ^ father(x) = "AA") = 0
+P(child(x) = "AA" | mother(x) = "aa" ^ father(x) = "Aa") = 0
+P(child(x) = "Aa" | mother(x) = "aa" ^ father(x) = "Aa") = 0.5
+P(child(x) = "aa" | mother(x) = "aa" ^ father(x) = "Aa") = 0.5
+P(child(x) = "AA" | mother(x) = "aa" ^ father(x) = "aa") = 0
+P(child(x) = "Aa" | mother(x) = "aa" ^ father(x) = "aa") = 0
+P(child(x) = "aa" | mother(x) = "aa" ^ father(x) = "aa") = 1
