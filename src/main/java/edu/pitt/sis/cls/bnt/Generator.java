@@ -17,7 +17,7 @@ public class Generator {
 
     public Generator() {
         parsers = new HashMap<String, Class<? extends Parser>>();
-        parsers.put(Constants.BNT_EXTENSION, XMLParser.class);
+        parsers.put(Constants.BNTX_EXTENSION, XMLParser.class);
         parsers.put(Constants.XML_EXTENSION, XMLParser.class);
     }
 
@@ -34,8 +34,18 @@ public class Generator {
     public NodePool constructPoolFromFile(
             String sourceFilename) throws Exception {
         InputStream is = new FileInputStream(sourceFilename);
-        Parser parser = parsers.get(extension(sourceFilename)).newInstance();
-        Bnt bnt = parser.parse(is);
+        Class parserClass = parsers.get(extension(sourceFilename));
+        if (parserClass == null) {
+            StringBuffer sb = new StringBuffer();
+            for (String key : parsers.keySet())
+                sb.append(key).append(" ");
+            String extensions
+                    = sb.toString().trim().replaceAll(" ", ", ");
+            throw new RuntimeException(String.format(
+                    "Unrecognized source type \"%s\"; should be one of {%s}.",
+                    extension(sourceFilename), extensions));
+        }
+        Bnt bnt = ((Parser) parserClass.newInstance()).parse(is);
         is.close();
         return constructPool(bnt);
     }
