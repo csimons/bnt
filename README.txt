@@ -19,14 +19,14 @@ RUNNING
 
  1. Create a BNT template file.  A sample file has been included:
 
-        src/main/resources/sample.bntx
+        src/main/resources/sample.bnt
 
  2. Run the compiled JAR, specifying the input file and optionally
-    the output file.  A sample BNTX template is included with this
+    the output file.  A sample BNT template is included with this
     distribution in the src/main/resources/ directory.  To test the
     program, compile the template to an XDSL file like so:
 
-    $ java -jar target/bnt-0.1.jar src/main/resources/sample.bntx
+    $ java -jar target/bnt-0.1.jar src/main/resources/sample.bnt
 
     This will create a file "sample.xdsl" in the working directory.
     This file can be opened with GeNIe for examination.  If the
