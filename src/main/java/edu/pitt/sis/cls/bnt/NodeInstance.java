@@ -33,9 +33,9 @@ public class NodeInstance {
     public String parents;
 
     /**
-     * Domain slice from which this node was instantiated.
+     * Domain partition from which this node was instantiated.
      */
-    public String domainSlice;
+    public String domainPartition;
 
     /**
      * Template node name from which this node was instantiated.

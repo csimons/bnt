@@ -10,7 +10,7 @@ import java.util.Map;
 import edu.pitt.sis.cls.bnt.lang.Bnt;
 import edu.pitt.sis.cls.bnt.lang.DomainObject;
 import edu.pitt.sis.cls.bnt.lang.Node;
-import edu.pitt.sis.cls.bnt.lang.Slice;
+import edu.pitt.sis.cls.bnt.lang.Partition;
 
 public class Generator {
     private Map<String, Class<? extends Parser>> parsers;
@@ -57,15 +57,15 @@ public class Generator {
     private List<List<NodeInstance>> generateDomainLayers(Bnt bnt) {
         List<List<NodeInstance>> domainLayers
                 = new LinkedList<List<NodeInstance>>();
-        for (Slice slice : bnt.getDomain().getSlice()) {
+        for (Partition partition : bnt.getDomain().getPartition()) {
             List<NodeInstance> domainLayer = new LinkedList<NodeInstance>();
             Map<String, String> layerSymbols = new HashMap<String, String>();
-            for (DomainObject domainObj : slice.getDomainObject())
+            for (DomainObject domainObj : partition.getDomainObject())
                 for (Node templateNode : bnt.getTemplate().getNode())
                     if (templateNode.getName().equals(domainObj.getBinding()))
                         layerSymbols.put(
                                 templateNode.getName(), domainObj.getName());
-            for (DomainObject domainObj : slice.getDomainObject()) {
+            for (DomainObject domainObj : partition.getDomainObject()) {
                 for (Node templateNode : bnt.getTemplate().getNode()) {
                     if (templateNode.getName().equals(
                             domainObj.getBinding())) {
@@ -74,7 +74,7 @@ public class Generator {
                         nodeInstance.cpt = templateNode.getCpt();
                         nodeInstance.states = templateNode.getStates();
                         nodeInstance.apriori = templateNode.getApriori();
-                        nodeInstance.domainSlice = slice.getId();
+                        nodeInstance.domainPartition = partition.getId();
                         nodeInstance.templateNodeName
                                 = templateNode.getName();
                         if (templateNode.getParents() != null)
@@ -83,7 +83,7 @@ public class Generator {
                         nodeInstance.name = String.format("%s::%s[d=%s]",
                                 nodeInstance.id,
                                 nodeInstance.templateNodeName,
-                                nodeInstance.domainSlice);
+                                nodeInstance.domainPartition);
                         domainLayer.add(nodeInstance);
                     }
                 }
@@ -120,7 +120,7 @@ public class Generator {
                     poolInstance.name = poolInstance.name
                             + String.format("::%s[d=%s]",
                                     nodeInstance.templateNodeName,
-                                    nodeInstance.domainSlice);
+                                    nodeInstance.domainPartition);
                     
                 }
             }

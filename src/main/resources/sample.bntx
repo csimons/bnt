@@ -2,21 +2,21 @@
 
 <bnt>
     <domain>
-        <slice id="g1">
+        <partition id="g1">
             <domain-object binding="mother" name="camille" />
             <domain-object binding="father" name="pierre" />
             <domain-object binding="child"  name="anne" />
-        </slice>
-        <slice id="g2">
+        </partition>
+        <partition id="g2">
             <domain-object binding="mother" name="anne" />
             <domain-object binding="father" name="brian" />
             <domain-object binding="child"  name="dorothy" />
-        </slice>
-        <slice id="g3">
+        </partition>
+        <partition id="g3">
             <domain-object binding="mother" name="dorothy" />
             <domain-object binding="father" name="matthew" />
             <domain-object binding="child"  name="robert" />
-        </slice>
+        </partition>
     </domain>
     <template>
         <node name="mother" states="AA Aa aa" apriori="0.25 0.50 0.25" />

@@ -11,11 +11,11 @@
   <xs:element name="domain">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="slice"/>
+        <xs:element maxOccurs="unbounded" ref="partition"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="slice">
+  <xs:element name="partition">
     <xs:complexType>
       <xs:sequence>
         <xs:element maxOccurs="unbounded" ref="domain-object"/>
