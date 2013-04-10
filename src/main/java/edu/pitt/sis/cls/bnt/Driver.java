@@ -49,18 +49,22 @@ public class Driver {
     }
 
     private static String getOutputFilename(String sourceFilename) {
-        String[] segments = sourceFilename.split("\\.");
+        String[] dotSegments = sourceFilename.split("\\.");
         String outputExtension = Constants.OUT_EXTENSION;
         String extension;
         String firstPart;
 
-        if (segments.length == 1)
+        if (dotSegments.length == 1)
             firstPart = sourceFilename;
         else {
-            extension = segments[segments.length - 1];
+            extension = dotSegments[dotSegments.length - 1];
             firstPart = sourceFilename.substring(
                     0, sourceFilename.length() - (extension.length() + 1));
         }
+
+        String[] pathSegments = firstPart.split("/");
+        if (pathSegments.length > 1)
+            firstPart = pathSegments[pathSegments.length - 1];
 
         return String.format("%s.%s", firstPart, outputExtension);
     }
