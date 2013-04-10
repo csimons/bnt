@@ -1,4 +1,4 @@
-BNT: Bayesian Network Templates
+bnt: Bayesian Network Templates
 
 
 BUILDING
