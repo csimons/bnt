@@ -1,3 +1,0 @@
-# bnt
-
-Bayesian Network Templates
