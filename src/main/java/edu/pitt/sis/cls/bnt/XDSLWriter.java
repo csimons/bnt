@@ -21,6 +21,18 @@ import edu.pitt.sis.cls.bnt.xdsl.Smile;
 import edu.pitt.sis.cls.bnt.xdsl.State;
 
 public class XDSLWriter implements Writer {
+    /**
+     * Absolute node location pixel specifications.
+     */
+    private static final int NODE_PADDING_PX = 20;
+    private static final int width           = 240;
+    private static final int height          = 40;
+    private static final int nodesPerRow     = 3;
+
+    private int top   = NODE_PADDING_PX;
+    private int left  = NODE_PADDING_PX;
+    private int count = 0;
+
     public String format(NodePool nodePool) {
         Smile smile = new Smile();
         smile.setVersion(new BigDecimal("1.0"));
@@ -96,8 +108,21 @@ public class XDSLWriter implements Writer {
         font.setColor("000000");
         node.setFont(font);
 
-        // Right edge, bottom, left edge, top.
-        node.setPosition("260 60 20 20");
+        // Pixel order in string: Right edge, bottom, left edge, top.
+        // node.setPosition("260 60 20 20"); // Stack all.
+
+        // New "grid" rendering in lieu of a proper node-placement algorithm.
+        count += 1;
+        node.setPosition(String.format("%d %d %d %d",
+                left + width, top + height, left, top));
+
+        if (count % nodesPerRow == 0) {
+            // Reset to new row.
+            top += height + NODE_PADDING_PX;
+            left = NODE_PADDING_PX;
+        } else {
+            left += width + NODE_PADDING_PX;
+        }
 
         Barchart barchart = new Barchart();
         barchart.setActive(false);
