@@ -17,6 +17,11 @@
             <domain-object binding="father" name="matthew" />
             <domain-object binding="child"  name="robert" />
         </partition>
+        <partition id="g4">
+            <domain-object binding="mother" name="adrienne" />
+            <domain-object binding="father" name="michael" />
+            <domain-object binding="child"  name="matthew" />
+        </partition>
     </domain>
     <template>
         <node name="mother" states="AA Aa aa" apriori="0.25 0.50 0.25" />
