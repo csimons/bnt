@@ -8,7 +8,7 @@ BUILDING
     b. Ensure that JAVA_HOME/bin is present in your PATH.
 
  2. Install Apache Maven (version 3+ recommended).
-    a. Ensure the M2_HOME environment variable is set.
+    a. Ensure that the M2_HOME environment variable is set.
     b. Ensure that M2_HOME/bin is present in your PATH.
 
  3. From the project root directory, run "mvn clean install".
