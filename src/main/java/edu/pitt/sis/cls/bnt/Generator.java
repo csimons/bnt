@@ -34,7 +34,7 @@ public class Generator {
     public NodePool constructPoolFromFile(
             String sourceFilename) throws Exception {
         InputStream is = new FileInputStream(sourceFilename);
-        Class parserClass = parsers.get(extension(sourceFilename));
+        Class<? extends Parser> parserClass = parsers.get(extension(sourceFilename));
         if (parserClass == null) {
             StringBuffer sb = new StringBuffer();
             for (String key : parsers.keySet())
