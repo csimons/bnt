@@ -33,7 +33,6 @@ public class Generator {
 
     public NodePool constructPoolFromFile(
             String sourceFilename) throws Exception {
-        InputStream is = new FileInputStream(sourceFilename);
         Class<? extends Parser> parserClass = parsers.get(extension(sourceFilename));
         if (parserClass == null) {
             StringBuffer sb = new StringBuffer();
@@ -45,6 +44,7 @@ public class Generator {
                     "Unrecognized source type \"%s\"; should be one of {%s}.",
                     extension(sourceFilename), extensions));
         }
+        InputStream is = new FileInputStream(sourceFilename);
         Bnt bnt = ((Parser) parserClass.newInstance()).parse(is);
         is.close();
         return constructPool(bnt);
